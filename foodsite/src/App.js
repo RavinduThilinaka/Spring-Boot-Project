@@ -14,6 +14,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import UserService from './component/Register/UserService';
 import UserManagement from './component/Register/UserManagement';
+import Role from './component/Register/Role';
 
 
 
@@ -52,6 +53,7 @@ export default function App() {
         {/* Login Route */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/role" element={<Role />} />
         {UserService.adminOnly() && (
           <>
             <Route path="/user" element={<UserManagement />} />
