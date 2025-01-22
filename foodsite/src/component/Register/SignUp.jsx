@@ -104,6 +104,9 @@ function SignUp() {
                 <option value="">Role</option>
                 <option value="USER">User</option>
                 <option value="ADMIN">Admin</option>
+                <option value="SUPPLIER">Supplier</option>
+                <option value="MANAGER">Manager</option>
+                <option value="EMPLOYEE">Employee</option>
               </select>
             </div>
             {/* Full Name */}

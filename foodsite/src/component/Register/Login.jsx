@@ -22,11 +22,23 @@ function Login() {
             if (userData.token) {
                 localStorage.setItem('token', userData.token);
                 localStorage.setItem('role', userData.role);
-                navigate("/");
+
+                // Redirect based on the user role
+                if (userData.role === "USER") {
+                    navigate("/"); // Redirect to customer home page
+                } else if (userData.role === "ADMIN") {
+                    navigate("/role"); // Redirect to admin dashboard
+                } else if (userData.role === "SUPPLIER") {
+                    navigate("/role"); // Redirect to supplier dashboard
+                } else if (userData.role === "MANAGER") {
+                    navigate("/role"); // Redirect to manager dashboard
+                } else {
+                    navigate("/"); // Default home page
+                }
             } else {
                 setError(userData.message);
             }
-        } catch (error) {
+        }  catch (error) {
             console.log(error);
             setError(error.message);
 
