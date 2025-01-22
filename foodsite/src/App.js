@@ -16,6 +16,7 @@ import UserService from './component/Register/UserService';
 import UserManagement from './component/Register/UserManagement';
 import Role from './component/Register/Role';
 import Admin from './component/Admin/Admin';
+import Supplier from './component/Supplier/Supplier';
 
 
 
@@ -56,6 +57,7 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/role" element={<Role />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/supplier" element={<Supplier />} />
         {UserService.adminOnly() && (
           <>
             <Route path="/user" element={<UserManagement />} />
