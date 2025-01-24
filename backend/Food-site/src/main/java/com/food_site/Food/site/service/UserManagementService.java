@@ -71,6 +71,7 @@ public class UserManagementService {
             response.setRole(user.getRole());
             response.setRefreshToken(refreshToken);
             response.setExpirationTime("24Hrs");
+            response.setName(user.getName());
             response.setMessage("login successfull");
 
         }catch (Exception e){

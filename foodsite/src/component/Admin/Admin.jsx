@@ -7,6 +7,8 @@ function Admin() {
   const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [users,setUsers] = useState([]);
   const navigate = useNavigate();
+  const userName = localStorage.getItem('name');  // Get the name from localStorage
+  const firstLetter = userName ? userName.charAt(0).toUpperCase() : null;
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!isSidebarCollapsed);
@@ -21,6 +23,7 @@ function Admin() {
   const handleLogout = () =>{
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("name")
     navigate("/login")
   }
 
@@ -152,11 +155,12 @@ function Admin() {
               className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400"
             ></ion-icon>
           </div>
-          <img
-            src="profile.jpg"
-            alt="Profile"
-            className="w-10 h-10 rounded-full border border-gray-300"
-          />
+          <li className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-blue-500 dark:bg-green-500 text-white rounded-full flex items-center justify-center">
+                        {firstLetter}
+                      </div>
+                      <span className='font-bold'>{userName}</span>
+                    </li>
         </div>
 
         {/* Card Section */}

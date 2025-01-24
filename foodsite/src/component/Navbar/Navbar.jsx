@@ -8,13 +8,18 @@ import { Link, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const userName = localStorage.getItem('name');  // Get the name from localStorage
+  const firstLetter = userName ? userName.charAt(0).toUpperCase() : null;
+  const isLoggedIn = localStorage.getItem('token');
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('name');
     navigate("/login"); // Redirect to login page after logout
   };
 
-  const isLoggedIn = localStorage.getItem('token');
+  
   
   return (
     <>
@@ -34,6 +39,10 @@ const Navbar = () => {
             <div className="flex items-center gap-6">
             <DarkMode />
               <ul className="flex items-center gap-4">
+              <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 py-1 rounded-full hover:scale-105 duration-300 flex items-center gap-3">
+                Order
+                <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
+              </button>
                 <li>
                   <Link
                     href=""
@@ -64,22 +73,29 @@ const Navbar = () => {
                     </li>
                   </>
                 ) : (
-                  <li>
-                    <button
-                      onClick={handleLogout}
-                      className="inline-block py-4 px-4 hover:text-primary"
-                    >
-                      Log Out
-                    </button>
-                  </li>
+                  <>
+                    {/* Display User Name and Initial */}
+                  
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="inline-block py-4 px-4 hover:text-primary"
+                      >
+                        Log Out
+                      </button>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-blue-500 dark:bg-green-500 text-white rounded-full flex items-center justify-center">
+                        {firstLetter}
+                      </div>
+                      <span className='font-bold'>{userName}</span>
+                    </li>
+                  </>
                 )}
               </ul>
 
               
-              <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 py-1 rounded-full hover:scale-105 duration-300 flex items-center gap-3">
-                Order
-                <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
-              </button>
+             
 
               {/* Dark Mode Toggle */}
             
