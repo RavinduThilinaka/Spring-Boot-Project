@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from "react";
 import "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js";
 import UserService from "../Register/UserService";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [users,setUsers] = useState([]);
+  const navigate = useNavigate();
+  const userName = localStorage.getItem('name');  // Get the name from localStorage
+  const firstLetter = userName ? userName.charAt(0).toUpperCase() : null;
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  const [users,setUsers] = useState([]);
+ 
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const handleLogout = () =>{
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("name")
+    navigate("/login")
+  }
 
   const fetchUsers = async () => {
      try {
@@ -106,14 +118,15 @@ function Admin() {
           </li>
 
           <li>
-            <a
-              href="#"
-              className="flex items-center px-4 py-3 hover:bg-green-800 rounded-lg transition duration-200"
+            <button
+              onClick={handleLogout}
+              className="flex items-center px-4 py-3 hover:bg-green-800 rounded-lg transition duration-200 w-full"
             >
               <ion-icon name="log-out-outline" className="text-2xl"></ion-icon>
               {!isSidebarCollapsed && <span className="ml-4">Sign-out</span>}
-            </a>
+            </button>
           </li>
+          
         </ul>
       </nav>
 
@@ -142,11 +155,12 @@ function Admin() {
               className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400"
             ></ion-icon>
           </div>
-          <img
-            src="profile.jpg"
-            alt="Profile"
-            className="w-10 h-10 rounded-full border border-gray-300"
-          />
+          <li className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-blue-500 dark:bg-green-500 text-white rounded-full flex items-center justify-center">
+                        {firstLetter}
+                      </div>
+                      <span className='font-bold'>{userName}</span>
+                    </li>
         </div>
 
         {/* Card Section */}
