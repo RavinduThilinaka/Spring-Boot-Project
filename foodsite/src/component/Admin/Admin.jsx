@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js";
 import UserService from "../Register/UserService";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [users,setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  const [users,setUsers] = useState([]);
+ 
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const handleLogout = () =>{
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/login")
+  }
 
   const fetchUsers = async () => {
      try {
@@ -106,14 +115,15 @@ function Admin() {
           </li>
 
           <li>
-            <a
-              href="#"
-              className="flex items-center px-4 py-3 hover:bg-green-800 rounded-lg transition duration-200"
+            <button
+              onClick={handleLogout}
+              className="flex items-center px-4 py-3 hover:bg-green-800 rounded-lg transition duration-200 w-full"
             >
               <ion-icon name="log-out-outline" className="text-2xl"></ion-icon>
               {!isSidebarCollapsed && <span className="ml-4">Sign-out</span>}
-            </a>
+            </button>
           </li>
+          
         </ul>
       </nav>
 

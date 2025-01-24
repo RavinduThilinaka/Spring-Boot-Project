@@ -2,10 +2,20 @@ import React from 'react';
 import Logo from "../../assets/foodlogo.png";
 import { FaCartShopping } from 'react-icons/fa6';
 import DarkMode from './DarkMode';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate("/login"); // Redirect to login page after logout
+  };
+
+  const isLoggedIn = localStorage.getItem('token');
+  
   return (
     <>
   
@@ -40,24 +50,29 @@ const Navbar = () => {
                     Contact
                   </Link>
                 </li>
-                <li>
-                <Link
-                   to={"/login"}
-                    className="inline-block py-4 px-4 hover:text-primary"
-                  >
-                    Login
-                  </Link>
-                 
-                </li>
-                <li>
-                  <Link
-                  to={"/signup"}
-                    href=""
-                    className="inline-block py-4 px-4 hover:text-primary"
-                  >
-                    Sign up
-                  </Link>
-                </li>
+                {!isLoggedIn ? (
+                  <>
+                    <li>
+                      <Link to="/login" className="inline-block py-4 px-4 hover:text-primary">
+                        Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/signup" className="inline-block py-4 px-4 hover:text-primary">
+                        Sign up
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="inline-block py-4 px-4 hover:text-primary"
+                    >
+                      Log Out
+                    </button>
+                  </li>
+                )}
               </ul>
 
               
