@@ -17,6 +17,8 @@ import UserManagement from './component/Register/UserManagement';
 import Role from './component/Register/Role';
 import Admin from './component/Admin/Admin';
 import Supplier from './component/Supplier/Supplier';
+import FoodList from './component/dishes/FoodList';
+import Cart from './component/dishes/Cart';
 
 
 
@@ -43,6 +45,7 @@ export default function App() {
               {/* Main page components */}
               <Navbar />
               <Hero />
+              <Cart/>
               <Services />
               <Banner />
               <AppStore />
@@ -58,6 +61,8 @@ export default function App() {
         <Route path="/role" element={<Role />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/supplier" element={<Supplier />} />
+        <Route path="/food" element={<FoodList />} />
+        <Route path="/cart" element={<Cart />} />
         {UserService.adminOnly() && (
           <>
             <Route path="/user" element={<UserManagement />} />
