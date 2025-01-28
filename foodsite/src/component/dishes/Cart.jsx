@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
-import rotateImg from '../../assets/rotate.png'; // Product image
-import Logo from "../../assets/foodlogo.png";
+import { useNavigate } from 'react-router-dom';
+import rotateImg from '../../assets/rotate.png';
 
-// Sample products for the homepage product section
 const products = [
   { id: 0, image: rotateImg, title: 'Product 1', price: 20 },
   { id: 1, image: rotateImg, title: 'Product 2', price: 60 },
@@ -11,52 +9,69 @@ const products = [
 ];
 
 const Cart = () => {
-  const navigate = useNavigate(); // Initialize navigate for React Router v6
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [buying, setBuying] = useState(null);
 
-  // This function is triggered when the "See All" button is clicked
   const handleSeeAllClick = () => {
-    setIsLoading(true); // Start loading
-
-    // Simulate a loading process (e.g., API call or processing time)
+    setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false); // Stop loading
-      navigate('/food'); // Navigate to the food list after loading
-    }, 2000); // Simulate a 2-second loading process
+      setIsLoading(false);
+      navigate('/food');
+    }, 2000);
+  };
+
+  const handleBuyNow = (product) => {
+    setBuying(product.id);
+    setTimeout(() => {
+      setBuying(null);
+      navigate(`/checkout/${product.id}`);
+    }, 1500);
   };
 
   return (
-    <div className="home-page flex flex-col items-center bg-white py-10 dark:bg-gray-800 dark:text-white">
-      {/* Product Section */}
-      <div className="product-section w-4/5 mb-12" data-aos="slide-up" data-aos-duration="300">
-        <h2 className="text-2xl font-bold text-center mb-8">Featured Products</h2>
-        <div className="grid grid-cols-3 gap-6">
+    <div className="home-page flex flex-col items-center bg-gradient-to-br from-gray-200 to-gray-100 py-10 dark:from-gray-700 dark:to-black dark:text-white">
+      <div className="product-section w-4/5 mb-12" data-aos="fade-up" data-aos-duration="300">
+        <h2 className="text-3xl font-extrabold text-center mb-10 text-gray-800 dark:text-white">
+          Featured Products
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <div
               key={product.id}
-              className="border border-black p-6 rounded-xl flex flex-col items-center bg-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 cursor-pointer dark:bg-gray-700"
+              className="relative p-6 bg-gray-100 dark:bg-gray-900 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col items-center"
             >
-              <div className="h-60 w-60 flex items-center justify-center rounded-xl overflow-hidden">
+              <div className="h-48 w-48 rounded-2xl overflow-hidden shadow-lg mb-4">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="object-cover h-full w-full transition-transform duration-500 transform hover:scale-110"
+                  className="object-cover w-full h-full transition-transform duration-500 transform hover:scale-110"
                 />
               </div>
-              <div className="mt-4 flex flex-col items-center text-center">
-                <p className="text-lg font-semibold text-gray-800 dark:text-white">{product.title}</p>
-                <h2 className="text-red-600 text-xl dark:text-white">${product.price}</h2>
-                <button className="bg-green-600 text-white py-2 px-6 rounded-md mt-4 hover:bg-green-700 transition duration-300 transform hover:scale-105">
+              <p className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                {product.title}
+              </p>
+              <h3 className="text-2xl font-bold text-indigo-500 dark:text-indigo-400 mb-4">
+                ${product.price}
+              </h3>
+              <div className="flex space-x-4">
+                <button className="bg-green-500 dark:bg-green-800 text-white py-2 px-6 rounded-full shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300">
                   Add to Cart
+                </button>
+                <button
+                  onClick={() => handleBuyNow(product)}
+                  className="bg-indigo-500 dark:bg-indigo-800 text-white py-2 px-6 rounded-full shadow-md hover:bg-indigo-600 hover:shadow-lg transition-all duration-300"
+                >
+                  {buying === product.id ? 'Processing...' : 'Buy Now'}
                 </button>
               </div>
             </div>
           ))}
         </div>
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-12">
           <button
             onClick={handleSeeAllClick}
-            className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-300"
+            className="bg-indigo-500 text-white py-3 px-8 rounded-full shadow-md hover:bg-indigo-600 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
           >
             {isLoading ? 'Loading...' : 'See All'}
           </button>
