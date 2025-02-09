@@ -1,4 +1,4 @@
-package com.food_site.Food.site.entity;
+package com.food_site.Food.site.entity.payment;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
 package com.food_site.Food.site.controller;
 
-import com.food_site.Food.site.entity.Payment;
+import com.food_site.Food.site.entity.payment.Payment;
 import com.food_site.Food.site.exception.PaymentNotFoundException;
 import com.food_site.Food.site.repository.PaymentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
