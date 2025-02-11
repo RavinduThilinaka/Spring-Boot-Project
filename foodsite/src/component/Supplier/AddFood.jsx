@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import UserService from '../Register/UserService';
 
 export default function AddFood() {
   const [foodName, setFoodName] = useState('');
@@ -31,7 +32,7 @@ export default function AddFood() {
     console.log('Sending request to backend with data:', formData); // Debugging request data
   
     axios
-      .post('http://localhost:8080/supplier/addsupplier', formData, {
+      .post(`${UserService.BASE_URL}/supplier/addsupplier`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
