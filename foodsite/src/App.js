@@ -19,6 +19,9 @@ import Admin from './component/Admin/Admin';
 import Supplier from './component/Supplier/Supplier';
 import Cart from './component/Dishes/Cart';
 import FoodList from './component/Dishes/FoodList';
+import AddFood from './component/Supplier/AddFood';
+import Payment from './component/Payment/Payment';
+import ViewFood from './component/Supplier/ViewFood';
 
 
 
@@ -62,6 +65,11 @@ export default function App() {
         <Route path="/supplier" element={<Supplier />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/foodlist" element={<FoodList />} />
+        <Route path="/add" element={<AddFood />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/viewfood" element={<ViewFood />} />
+        
+       
         {UserService.adminOnly() && (
           <>
             <Route path="/user" element={<UserManagement />} />
