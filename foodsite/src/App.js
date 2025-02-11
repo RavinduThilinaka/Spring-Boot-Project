@@ -19,6 +19,7 @@ import Admin from './component/Admin/Admin';
 import Supplier from './component/Supplier/Supplier';
 import Cart from './component/Dishes/Cart';
 import FoodList from './component/Dishes/FoodList';
+import AddFood from './component/Supplier/AddFood';
 
 
 
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/supplier" element={<Supplier />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/foodlist" element={<FoodList />} />
+        <Route path="/add" element={<AddFood />} />
         {UserService.adminOnly() && (
           <>
             <Route path="/user" element={<UserManagement />} />
