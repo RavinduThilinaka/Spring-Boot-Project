@@ -14,7 +14,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private int cardNumber;
+    private String cardNumber;
     private int cvv;
     private String email;
     private String method;
@@ -52,11 +52,11 @@ public class Payment {
         this.cvv = cvv;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 

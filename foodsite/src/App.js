@@ -48,6 +48,7 @@ export default function App() {
               {/* Main page components */}
               <Navbar />
               <Hero />
+              <Cart/>
               <Services />
               <Banner />
               <AppStore />
@@ -63,7 +64,6 @@ export default function App() {
         <Route path="/role" element={<Role />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/supplier" element={<Supplier />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/foodlist" element={<FoodList />} />
         <Route path="/add" element={<AddFood />} />
         <Route path="/payment" element={<Payment />} />

@@ -11,6 +11,7 @@ function SignUp() {
   const [showSecretKeyModal, setShowSecretKeyModal] = useState(false);
   const [secretKey, setSecretKey] = useState('');
   const [error, setError] = useState('');
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -71,8 +72,12 @@ function SignUp() {
         role: "",
       });
 
-      alert('User Registered successfully!');
-      navigate('/login');
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        navigate('/login');
+      }, 3000);
+     
     } catch (error) {
       console.error("Error registering user", error);
       alert("An error occurred while registering user");
@@ -249,6 +254,22 @@ function SignUp() {
                 Submit
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+{showSuccessPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <i className="fas fa-check-circle text-green-500 text-4xl mb-4"></i>
+            <h3 className="text-xl font-bold mb-4">Registration Successful!</h3>
+            <p className="text-green-500 mb-4">Your account has been created successfully.</p>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+              onClick={() => setShowSuccessPopup(false)}
+            >
+              OK
+            </button>
           </div>
         </div>
       )}

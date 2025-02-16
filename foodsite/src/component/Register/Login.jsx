@@ -23,6 +23,7 @@ function Login() {
                 localStorage.setItem('token', userData.token);
                 localStorage.setItem('role', userData.role);
                 localStorage.setItem('name', userData.name);
+                localStorage.setItem('email', email);
 
                 // Redirect based on the user role
                 if (userData.role === "USER") {

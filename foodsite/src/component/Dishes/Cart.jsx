@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import rotateImg from '../../assets/rotate.png';
 
 const products = [
-  { id: 0, image: rotateImg, title: 'Product 1', price: 20 },
-  { id: 1, image: rotateImg, title: 'Product 2', price: 60 },
-  { id: 2, image: rotateImg, title: 'Product 3', price: 120 },
+  { id: 0, image: rotateImg, title: 'Product 1', price: 20.00 },
+  { id: 1, image: rotateImg, title: 'Product 2', price: 60.00 },
+  { id: 2, image: rotateImg, title: 'Product 3', price: 120.00 },
 ];
 
 const Cart = () => {
@@ -17,7 +17,7 @@ const Cart = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      navigate('/food');
+      navigate('/foodlist');
     }, 2000);
   };
 
@@ -52,7 +52,7 @@ const Cart = () => {
                 {product.title}
               </p>
               <h3 className="text-2xl font-bold text-indigo-500 dark:text-indigo-400 mb-4">
-                ${product.price}
+                ${product.price}.00
               </h3>
               <div className="flex space-x-4">
                 <button className="bg-green-500 dark:bg-green-800 text-white py-2 px-6 rounded-full shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300">
