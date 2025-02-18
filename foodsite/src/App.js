@@ -22,6 +22,7 @@ import FoodList from './component/Dishes/FoodList';
 import AddFood from './component/Supplier/AddFood';
 import Payment from './component/Payment/Payment';
 import ViewFood from './component/Supplier/ViewFood';
+import Profile from './component/Profile/Profile';
 
 
 
@@ -68,6 +69,7 @@ export default function App() {
         <Route path="/add" element={<AddFood />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/viewfood" element={<ViewFood />} />
+        <Route path="/profile" element={<Profile />} />
         
        
         {UserService.adminOnly() && (

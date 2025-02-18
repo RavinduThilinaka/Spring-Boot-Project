@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js";
 import UserService from "../Register/UserService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Admin() {
   const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -155,12 +155,12 @@ function Admin() {
               className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400"
             ></ion-icon>
           </div>
-          <li className="flex items-center gap-2">
+          <Link className="flex items-center gap-2" to={"/profile"}>
                       <div className="w-8 h-8 bg-blue-500 dark:bg-green-500 text-white rounded-full flex items-center justify-center">
                         {firstLetter}
                       </div>
                       <span className='font-bold'>{userName}</span>
-                    </li>
+            </Link>
         </div>
 
         {/* Card Section */}

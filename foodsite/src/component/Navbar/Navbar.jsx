@@ -84,12 +84,12 @@ const Navbar = () => {
                         Log Out
                       </button>
                     </li>
-                    <li className="flex items-center gap-2">
+                    <Link className="flex items-center gap-2" to={"/profile"}>
                       <div className="w-8 h-8 bg-blue-500 dark:bg-green-500 text-white rounded-full flex items-center justify-center">
                         {firstLetter}
                       </div>
                       <span className='font-bold'>{userName}</span>
-                    </li>
+                    </Link>
                   </>
                 )}
               </ul>
