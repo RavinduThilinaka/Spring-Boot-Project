@@ -1,14 +1,56 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion,AnimatePresence } from "framer-motion";
+import axios from "axios";
+import UserService from "../Register/UserService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCreditCard, faEnvelope, faShieldAlt, faCalendar, faSpinner, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function ContactPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [processing, setProcessing] = useState(false); // New: Payment processing state
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-    const handleSubmit = (e) => {
+    const [formData,setFormData] = useState({
+        name:"",
+        email:"",
+        message:""
+    });
+
+    const handleChange = (e) =>{
+        setFormData({...formData,[e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log("Form Submitted", { name, email, message });
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("You are not authenticated! Please login first.");
+          setLoading(false);
+          return;
+        }
+
+        try {
+            await axios.post(`${UserService.BASE_URL}/contact/addContact`,
+                formData,{
+                    headers:{Authorization :`Bearer ${token}`},
+                }
+            );
+
+            setProcessing(true);
+            setTimeout(() => {
+              setProcessing(false);
+              setShowSuccessPopup(true);
+            }, 2000);
+
+        } catch (error) {
+            console.error("Error",error);
+            alert("Cnntact failed please try again");
+        }finally{
+            setLoading(false)
+        }
     };
 
     return (
@@ -71,15 +113,15 @@ export default function ContactPage() {
                 >
                     <form className="flex flex-col space-y-6" onSubmit={handleSubmit}>
                         <label className="text-lg font-semibold">Your Name</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)}
+                        <input type="text" value={formData.name} onChange={handleChange} name="name"
                             placeholder="Enter your name" className="ring-2 ring-gray-300 w-full rounded-lg px-5 py-3 outline-none focus:ring-green-700 transition duration-200" />
                         
                         <label className="text-lg font-semibold">Email</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                        <input type="email" value={formData.email} onChange={handleChange} name="email"
                             placeholder="Enter your email" className="ring-2 ring-gray-300 w-full rounded-lg px-5 py-3 outline-none focus:ring-green-700 transition duration-200" />
                         
                         <label className="text-lg font-semibold">Message</label>
-                        <textarea value={message} onChange={(e) => setMessage(e.target.value)}
+                        <textarea value={formData.message} onChange={handleChange} name="message"
                             placeholder="Message" className="ring-2 ring-gray-300 w-full rounded-lg px-5 py-3 outline-none focus:ring-green-700 transition duration-200" />
                         
                         <motion.button 
@@ -93,6 +135,28 @@ export default function ContactPage() {
                     </form>
                 </motion.div>
             </motion.div>
+
+            {/* Success Popup */}
+            <AnimatePresence>
+                {showSuccessPopup && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.3 }}
+                    className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
+                >
+                    <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+                    <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 text-6xl mb-3" />
+                    <h3 className="text-xl font-semibold text-gray-700">Payment Successful!</h3>
+                    <p className="text-gray-500 mb-4">Your payment has been processed successfully.</p>
+                    <button onClick={() => setShowSuccessPopup(false)} className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                        Close
+                    </button>
+                    </div>
+                </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
