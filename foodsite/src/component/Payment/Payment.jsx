@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useNavigate } from "react";
 import axios from "axios";
 import UserService from "../Register/UserService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,7 @@ const Payment = () => {
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false); // New: Payment processing state
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
