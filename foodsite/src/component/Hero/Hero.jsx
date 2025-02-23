@@ -3,6 +3,8 @@ import bgImg from "../../assets/background.jpg";
 import Food1 from "../../assets/rotate.png"
 import Food2 from "../../assets/rotate2.png"
 import Food3 from "../../assets/rotate3.png"
+import { FiPhoneCall } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const ImageList = [
     {
@@ -79,6 +81,10 @@ const Hero = () => {
             </div>
 
         </div>
+
+        <Link to="/contact" className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300">
+            <FiPhoneCall size={24} />
+        </Link>
     </>
   )
 }
