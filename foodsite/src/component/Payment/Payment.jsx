@@ -17,7 +17,7 @@ const Payment = () => {
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false); // New: Payment processing state
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");

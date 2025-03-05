@@ -24,6 +24,7 @@ import Payment from './component/Payment/Payment';
 import ViewFood from './component/Supplier/ViewFood';
 import Profile from './component/Profile/Profile';
 import Contact from './component/Contact/Contact';
+import OrderSummary from './component/Dishes/OrderSummary';
 
 
 
@@ -72,6 +73,7 @@ export default function App() {
         <Route path="/viewfood" element={<ViewFood />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/orsummery" element={<OrderSummary />} />
        
         {UserService.adminOnly() && (
           <>
