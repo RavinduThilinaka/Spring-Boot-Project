@@ -167,10 +167,10 @@ function Admin() {
         <div className="grid grid-cols-4 gap-6">
           {/* Card 1 */}
           <div className="bg-white shadow-md p-6 rounded-lg text-center">
-            <div className="text-2xl font-bold">12340</div>
+            <div className="text-2xl font-bold">{users.length}</div> {/* Display user count */}
             <div className="text-sm text-gray-500">Daily Views</div>
             <div className="mt-4 text-gray-400 text-4xl">
-              <ion-icon name="eye-outline"></ion-icon>
+              <ion-icon name="people-outline"></ion-icon>
             </div>
           </div>
 
@@ -228,12 +228,12 @@ function Admin() {
                                 <td className="px-4 py-2">{user.age}</td>
                                 <td className="px-4 py-2">{user.role}</td>
                                 <td className="px-4 py-2">
-                                    <button className="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600" >
+                                    <Link className="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600" to={`/edit/${user.id}`} >
                                         <i className="fas fa-edit"></i>
-                                    </button>
-                                    <button className="bg-blue-500 text-white px-3 py-2 rounded ml-2 hover:bg-blue-600">
+                                    </Link>
+                                    <Link className="bg-blue-500 text-white px-3 py-2 rounded ml-2 hover:bg-blue-600" to={`/view/${user.id}`}>
                                         <i className="fas fa-eye"></i>
-                                    </button>
+                                    </Link>
                                     <button className="bg-red-500 text-white px-3 py-2 rounded ml-2 hover:bg-red-600" onClick={()=>deleteUser(user.id)}>
                                         <i className="fas fa-trash"></i>
                                     </button>
