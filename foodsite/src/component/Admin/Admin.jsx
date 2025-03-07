@@ -200,6 +200,11 @@ function Admin() {
               <ion-icon name="cash-outline"></ion-icon>
             </div>
           </div>
+
+          <div className="bg-white shadow-md p-6 rounded-lg text-center w-[600px] h-[300px]">
+            <div className="text-2xl font-bold">piechar</div>
+           {/*add to pie chart*/}
+          </div>
         </div>
 
         {/* Table Section */}
