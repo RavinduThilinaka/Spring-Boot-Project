@@ -1,108 +1,252 @@
-import React from 'react';
-import Logo from "../../assets/foodlogo.png";
-import { FaCartShopping } from 'react-icons/fa6';
-import DarkMode from './DarkMode';
+import React, { useState, useEffect } from 'react';
+import { FaShoppingCart, FaSun, FaMoon, FaUserCircle } from 'react-icons/fa';
+import { HiMenu, HiX } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
-
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const userName = localStorage.getItem('name');  // Get the name from localStorage
+  const userName = localStorage.getItem('name');
   const firstLetter = userName ? userName.charAt(0).toUpperCase() : null;
   const isLoggedIn = localStorage.getItem('token');
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      setScrolled(isScrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle dark mode
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('name');
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login");
   };
 
-  
-  
   return (
     <>
-  
-      <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200">
-        <div className="container py-3 sm:py-0">
+      <div className={`fixed w-full z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg py-2' 
+          : 'bg-white dark:bg-gray-900 py-4'
+      }`}>
+        <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
-            {/* Logo */}
-            <div className="flex items-center gap-2 text-2xl sm:text-3xl font-bold">
-              <a  className="flex items-center gap-2">
-                <img src={Logo} alt="Foodie Zoon" className="w-10" />
-                Good Food
-              </a>
-            </div>
+            {/* Brand Name with Animation */}
+            <Link 
+              to="/" 
+              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+            >
+              Good Food
+            </Link>
 
-            
-            <div className="flex items-center gap-6">
-            <DarkMode />
-              <ul className="flex items-center gap-4">
-              <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 py-1 rounded-full hover:scale-105 duration-300 flex items-center gap-3">
-                Order
-                <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
-              </button>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              <ul className="flex items-center gap-6">
                 <li>
                   <Link
-                    href=""
-                    className="inline-block py-4 px-4 hover:text-primary"
+                    to="/"
+                    className="inline-block py-2 px-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 relative group"
                   >
                     Home
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href=""
-                    className="inline-block py-4 px-4 hover:text-primary"
+                    to="/contact"
+                    className="inline-block py-2 px-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 relative group"
                   >
                     Contact
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 </li>
+                <li>
+                  <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+                    Order
+                    <FaShoppingCart className="text-lg" />
+                  </button>
+                </li>
+              </ul>
+
+              <div className="flex items-center gap-4 pl-4 border-l border-gray-200 dark:border-gray-700">
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300 group"
+                  aria-label="Toggle dark mode"
+                >
+                  {isDarkMode ? (
+                    <FaSun className="text-xl text-yellow-500 group-hover:rotate-45 transition-transform duration-500" />
+                  ) : (
+                    <FaMoon className="text-xl text-gray-700 group-hover:rotate-12 transition-transform duration-500" />
+                  )}
+                </button>
+
                 {!isLoggedIn ? (
                   <>
-                    <li>
-                      <Link to="/login" className="inline-block py-4 px-4 hover:text-primary">
-                        Login
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/signup" className="inline-block py-4 px-4 hover:text-primary">
-                        Sign up
-                      </Link>
-                    </li>
+                    <Link 
+                      to="/login" 
+                      className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                    >
+                      Login
+                    </Link>
+                    <Link 
+                      to="/signup" 
+                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 shadow-md hover:shadow-lg"
+                    >
+                      Sign up
+                    </Link>
                   </>
                 ) : (
                   <>
-                    {/* Display User Name and Initial */}
-                  
-                    <li>
-                      <button
-                        onClick={handleLogout}
-                        className="inline-block py-4 px-4 hover:text-primary"
-                      >
-                        Log Out
-                      </button>
-                    </li>
-                    <Link className="flex items-center gap-2" to={"/profile"}>
-                      <div className="w-8 h-8 bg-blue-500 dark:bg-green-500 text-white rounded-full flex items-center justify-center">
-                        {firstLetter}
+                    <button
+                      onClick={handleLogout}
+                      className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                    >
+                      Log Out
+                    </button>
+                    <Link 
+                      to="/profile" 
+                      className="flex items-center gap-2 group"
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-md">
+                        {firstLetter || <FaUserCircle className="text-xl" />}
                       </div>
-                      <span className='font-bold'>{userName}</span>
+                      <span className='font-medium max-w-[100px] truncate'>{userName}</span>
                     </Link>
                   </>
                 )}
-              </ul>
+              </div>
+            </div>
 
+            {/* Mobile Menu Button */}
+            <div className="flex items-center gap-4 md:hidden">
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="p-2 rounded-full bg-gray-100 dark:bg-gray-800"
+                aria-label="Toggle dark mode"
+              >
+                {isDarkMode ? (
+                  <FaSun className="text-xl text-yellow-500" />
+                ) : (
+                  <FaMoon className="text-xl text-gray-700" />
+                )}
+              </button>
               
-             
-
-              {/* Dark Mode Toggle */}
-            
+              <button 
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <HiX className="text-2xl" /> : <HiMenu className="text-2xl" />}
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <div className={`md:hidden bg-white dark:bg-gray-900 overflow-hidden transition-all duration-500 ${
+          isMenuOpen ? 'max-h-96 py-4' : 'max-h-0 py-0'
+        }`}>
+          <div className="container mx-auto px-4">
+            <ul className="flex flex-col gap-4">
+              <li>
+                <Link
+                  to="/"
+                  className="block py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="block py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full flex items-center justify-center gap-2 mt-2">
+                  Order
+                  <FaShoppingCart className="text-lg" />
+                </button>
+              </li>
+              {!isLoggedIn ? (
+                <>
+                  <li>
+                    <Link 
+                      to="/login" 
+                      className="block py-2 text-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link 
+                      to="/signup" 
+                      className="block py-2 bg-blue-600 text-white rounded-md text-center hover:bg-blue-700 transition-colors duration-300"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign up
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                    >
+                      Log Out
+                    </button>
+                  </li>
+                  <li>
+                    <Link 
+                      to="/profile" 
+                      className="flex items-center justify-center gap-2 py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center">
+                        {firstLetter || <FaUserCircle className="text-xl" />}
+                      </div>
+                      <span className='font-medium'>{userName}</span>
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
       </div>
+      
+      {/* Add spacing for fixed navbar - Reduced height to eliminate gap */}
+      <div className="h-14 md:h-10"></div>
     </>
   );
 };
