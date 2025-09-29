@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import BackgroundImage from "../../assets/loginBg1.jpg";
 import BackgroundImage2 from "../../assets/loginBg2.jpg";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserService from './UserService';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import { FaUser, FaEnvelope, FaLock, FaVenusMars, FaBirthdayCake, FaUserTag, FaUtensils, FaShippingFast, FaHeart } from 'react-icons/fa';
 
 function SignUp() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -11,7 +11,8 @@ function SignUp() {
   const [showSecretKeyModal, setShowSecretKeyModal] = useState(false);
   const [secretKey, setSecretKey] = useState('');
   const [error, setError] = useState('');
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false); 
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,25 +31,24 @@ function SignUp() {
 
     if (selectedRole === "ADMIN") {
       setShowSecretKeyModal(true);
-      setInputsEnabled(false);  // Disable other inputs until secret key is verified
+      setInputsEnabled(false);
     } else {
       setIsAdmin(false);
-      setInputsEnabled(true);  // Enable inputs for regular user
+      setInputsEnabled(true);
     }
   };
 
   const handleSecretKeySubmit = () => {
-    const correctKey = "1234";  // Replace with your actual key (secure handling required in production)
+    const correctKey = "1234";
     
     if (secretKey === correctKey) {
       setIsAdmin(true);
-      setInputsEnabled(true);  // Enable fields after key is correct
-      setShowSecretKeyModal(false);  // Close modal
+      setInputsEnabled(true);
+      setShowSecretKeyModal(false);
       setError('');
-      alert("Secret key is correct. Admin access granted!");
     } else {
       setError('Invalid secret key. Please try again.');
-      setInputsEnabled(false);  // Keep fields disabled until correct key is entered
+      setInputsEnabled(false);
     }
   };
 
@@ -59,9 +59,11 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    
     try {
       const token = localStorage.getItem('token');
-      await UserService.register(formData,token);
+      await UserService.register(formData, token);
 
       setFormData({
         name: "",
@@ -81,198 +83,330 @@ function SignUp() {
     } catch (error) {
       console.error("Error registering user", error);
       alert("An error occurred while registering user");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center"  style={{ backgroundImage: `url(${BackgroundImage2})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-      <div className="relative w-full max-w-4xl flex shadow-lg rounded-lg overflow-hidden ">
-        {/* Form Section */}
-        <div className="w-1/2 bg-gray-100 px-8 py-12 flex flex-col justify-center shadow-lg ">
-          <h2 className="text-3xl font-bold mb-4 text-center">Create Account!</h2>
-          <p className="mb-6 text-zinc-700">
-            Join us today! Enter your details to create your account.
-          </p>
-          <form onSubmit={handleSubmit}>
-            {/* Role */}
-            <div className="mb-4 relative">
-              <div className="absolute left-3 top-2/4 transform -translate-y-2/4 text-gray-400">
-                <i className="fas fa-user-tag"></i>
+    <div className="min-h-screen flex items-center justify-center p-6 bg-amber-50">
+      {/* Main Card */}
+      <div className="w-full max-w-6xl flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl bg-white">
+        
+        {/* Left Section - Food Theme & Info */}
+        <div className="lg:w-2/5 bg-gradient-to-br from-amber-500 to-orange-600 p-12 text-white relative overflow-hidden">
+          <div className="relative z-10">
+            <div className="mb-8">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center border border-white/30">
+                  <FaUtensils className="text-xl" />
+                </div>
+                <h1 className="text-4xl font-bold">Foodie<span className="text-amber-200">Hub</span></h1>
               </div>
-              <select
-                id="role"
-                name="role"
-                onChange={handleRoleChange}
-                className="pl-10 block w-full border-2 border-gray-300 rounded-md py-2 focus:border-blue-400 focus:outline-none sm:text-sm"
-                value={formData.role}
-              >
-                <option value="">Role</option>
-                <option value="USER">User</option>
-                <option value="ADMIN">Admin</option>
-                <option value="SUPPLIER">Supplier</option>
-                <option value="MANAGER">Manager</option>
-                <option value="EMPLOYEE">Employee</option>
-              </select>
-            </div>
-            {/* Full Name */}
-            <div className="mb-4 relative">
-              <div className="absolute left-3 top-2/4 transform -translate-y-2/4 text-gray-400">
-                <i className="fas fa-user"></i>
-              </div>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Full Name"
-                disabled={!inputsEnabled}
-                onChange={handleInputChange}
-                value={formData.name}
-                className="pl-10 block w-full border-2 border-gray-300 rounded-md py-2 focus:border-blue-400 focus:outline-none sm:text-sm"
-              />
-            </div>
-            {/* Email */}
-            <div className="mb-4 relative">
-              <div className="absolute left-3 top-2/4 transform -translate-y-2/4 text-gray-400">
-                <i className="fas fa-envelope"></i>
-              </div>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                disabled={!inputsEnabled}
-                onChange={handleInputChange}
-                value={formData.email}
-                className="pl-10 block w-full border-2 border-gray-300 rounded-md py-2 focus:border-blue-400 focus:outline-none sm:text-sm"
-              />
-            </div>
-            {/* Gender */}
-            <div className="mb-4 relative">
-              <div className="absolute left-3 top-2/4 transform -translate-y-2/4 text-gray-400">
-                <i className="fas fa-venus-mars"></i>
-              </div>
-              <select
-                id="gender"
-                name="gender"
-                disabled={!inputsEnabled}
-                onChange={handleInputChange}
-                value={formData.gender}
-                className="pl-10 block w-full border-2 border-gray-300 rounded-md py-2 focus:border-blue-400 focus:outline-none sm:text-sm"
-              >
-                <option value="">Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            {/* Age */}
-            <div className="mb-4 relative">
-              <div className="absolute left-3 top-2/4 transform -translate-y-2/4 text-gray-400">
-                <i className="fas fa-birthday-cake"></i>
-              </div>
-              <input
-                type="number"
-                id="age"
-                name="age"
-                placeholder="Age"
-                disabled={!inputsEnabled}
-                onChange={handleInputChange}
-                value={formData.age}
-                className="pl-10 block w-full border-2 border-gray-300 rounded-md py-2 focus:border-blue-400 focus:outline-none sm:text-sm"
-              />
+              <p className="text-amber-100 text-lg">Join our delicious community today!</p>
             </div>
 
-            {/* Password */}
-            <div className="mb-4 relative">
-              <div className="absolute left-3 top-2/4 transform -translate-y-2/4 text-gray-400">
-                <i className="fas fa-lock"></i>
+            <div className="space-y-6 mb-12">
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30">
+                  <FaUtensils className="text-amber-200" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Exclusive Recipes</h3>
+                  <p className="text-amber-200 text-sm">Access chef-curated recipes</p>
+                </div>
               </div>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                disabled={!inputsEnabled}
-                onChange={handleInputChange}
-                value={formData.password}
-                className="pl-10 block w-full border-2 border-gray-300 rounded-md py-2 focus:border-blue-400 focus:outline-none sm:text-sm"
-              />
+
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30">
+                  <FaShippingFast className="text-amber-200" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Fast Delivery</h3>
+                  <p className="text-amber-200 text-sm">Fresh ingredients at your door</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30">
+                  <FaHeart className="text-amber-200" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Personalized Taste</h3>
+                  <p className="text-amber-200 text-sm">Recommendations just for you</p>
+                </div>
+              </div>
             </div>
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
-            >
-              Sign Up
-            </button>
-          </form>
+
+            <div className="border-t border-amber-400/30 pt-8">
+              <p className="text-amber-200 mb-4">Already a foodie?</p>
+              <Link
+                to="/login"
+                className="inline-flex items-center space-x-2 bg-white/20 hover:bg-white/30 border border-white/30 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105"
+              >
+                <i className="fas fa-sign-in-alt"></i>
+                <span>Sign In to Your Account</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Food Pattern Background */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 right-10 text-4xl">🍕</div>
+            <div className="absolute top-1/3 left-8 text-3xl">🍔</div>
+            <div className="absolute bottom-20 right-20 text-4xl">🥗</div>
+            <div className="absolute bottom-10 left-10 text-3xl">🍣</div>
+            <div className="absolute top-10 left-1/3 text-4xl">🍰</div>
+            <div className="absolute bottom-1/3 right-1/4 text-3xl">☕</div>
+          </div>
         </div>
 
-        {/* Image Section */}
-        <div className="w-1/2 relative bg-blue-100 flex items-center justify-center">
-          <div className="absolute z-10 text-center">
-            <p className="text-zinc-900 text-sm mb-5">Already have an account?</p>
-            <a
-              href="/login"
-              className="border-2 border-blue-400 text-blue-400 py-2 px-5 rounded hover:bg-blue-400 hover:text-white transition"
-            >
-              Login
-            </a>
+        {/* Right Section - Form */}
+        <div className="lg:w-3/5 p-12 bg-white">
+          <div className="max-w-md mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">Join FoodieHub</h2>
+              <p className="text-gray-600">Create your account and start your culinary journey</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Role */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <FaUserTag className="inline mr-2 text-amber-500" />
+                  I want to join as
+                </label>
+                <select
+                  id="role"
+                  name="role"
+                  onChange={handleRoleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300 bg-gray-50 hover:bg-white"
+                  value={formData.role}
+                >
+                  <option value="">Select your role</option>
+                  <option value="USER">Food Lover</option>
+                  <option value="ADMIN">Restaurant Admin</option>
+                  <option value="SUPPLIER">Ingredient Supplier</option>
+                  <option value="MANAGER">Kitchen Manager</option>
+                  <option value="EMPLOYEE">Restaurant Staff</option>
+                </select>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Full Name */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FaUser className="inline mr-2 text-amber-500" />
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="John Doe"
+                    disabled={!inputsEnabled}
+                    onChange={handleInputChange}
+                    value={formData.name}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300 bg-gray-50 hover:bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FaEnvelope className="inline mr-2 text-amber-500" />
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="john@example.com"
+                    disabled={!inputsEnabled}
+                    onChange={handleInputChange}
+                    value={formData.email}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300 bg-gray-50 hover:bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Gender */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FaVenusMars className="inline mr-2 text-amber-500" />
+                    Gender
+                  </label>
+                  <select
+                    id="gender"
+                    name="gender"
+                    disabled={!inputsEnabled}
+                    onChange={handleInputChange}
+                    value={formData.gender}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300 bg-gray-50 hover:bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  >
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* Age */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FaBirthdayCake className="inline mr-2 text-amber-500" />
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    placeholder="25"
+                    disabled={!inputsEnabled}
+                    onChange={handleInputChange}
+                    value={formData.age}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300 bg-gray-50 hover:bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <FaLock className="inline mr-2 text-amber-500" />
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Create a secure password"
+                  disabled={!inputsEnabled}
+                  onChange={handleInputChange}
+                  value={formData.password}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300 bg-gray-50 hover:bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-amber-200"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Creating Your Food Profile...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center space-x-2">
+                    <FaUtensils />
+                    <span>Join FoodieHub</span>
+                  </div>
+                )}
+              </button>
+            </form>
+
+            {/* Login Link - Mobile */}
+            <div className="text-center mt-8 pt-6 border-t border-gray-200 lg:hidden">
+              <p className="text-gray-600 text-sm">
+                Already have an account?{' '}
+                <Link 
+                  to="/login" 
+                  className="font-semibold text-amber-600 hover:text-amber-700 transition-colors hover:underline"
+                >
+                  Sign In
+                </Link>
+              </p>
+            </div>
           </div>
-          <img
-            src={BackgroundImage}
-            alt="Background"
-            className="w-full h-full object-cover"
-          />
         </div>
       </div>
       
       {/* Secret Key Modal */}
       {showSecretKeyModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <h3 className="text-xl font-bold mb-4">Enter Secret Key</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform animate-scale-in">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-key text-2xl text-amber-600"></i>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Admin Verification</h3>
+              <p className="text-gray-600">Enter the secret key to register as restaurant admin</p>
+            </div>
+
             <input
               type="password"
-              className="border-2 border-gray-300 rounded-md py-2 px-4 w-full mb-4"
-              placeholder="Secret Key"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 mb-4"
+              placeholder="Enter secret key"
               value={secretKey}
               onChange={(e) => setSecretKey(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSecretKeySubmit()}
             />
-            {error && <p className="text-red-500 mb-4">{error}</p>}
-            <div className="flex justify-between gap-1">
+
+            {error && (
+              <div className="flex items-center justify-center text-red-600 bg-red-50 py-2 px-4 rounded-lg mb-4">
+                <i className="fas fa-exclamation-circle mr-2"></i>
+                {error}
+              </div>
+            )}
+
+            <div className="flex space-x-3">
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition "
+                className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors duration-300"
                 onClick={() => setShowSecretKeyModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                className="flex-1 bg-amber-600 text-white py-3 rounded-xl font-semibold hover:bg-amber-700 transition-colors duration-300"
                 onClick={handleSecretKeySubmit}
               >
-                Submit
+                Verify Key
               </button>
             </div>
           </div>
         </div>
       )}
 
-{showSuccessPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <i className="fas fa-check-circle text-green-500 text-4xl mb-4"></i>
-            <h3 className="text-xl font-bold mb-4">Registration Successful!</h3>
-            <p className="text-green-500 mb-4">Your account has been created successfully.</p>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
-              onClick={() => setShowSuccessPopup(false)}
-            >
-              OK
-            </button>
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 text-center transform animate-scale-in">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i className="fas fa-check text-3xl text-green-600"></i>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">Welcome to FoodieHub!</h3>
+            <p className="text-gray-600 mb-6">Your account has been created successfully.</p>
+            
+            <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+              <div className="bg-green-500 h-2 rounded-full animate-progress"></div>
+            </div>
+            
+            <p className="text-sm text-gray-500">Preparing your culinary experience...</p>
           </div>
         </div>
       )}
+
+      {/* Animations */}
+      <style jsx>{`
+        @keyframes scale-in {
+          0% { transform: scale(0.9); opacity: 0; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+        .animate-scale-in {
+          animation: scale-in 0.3s ease-out;
+        }
+        .animate-progress {
+          animation: progress 3s ease-in-out;
+        }
+      `}</style>
     </div>
   );
 }
