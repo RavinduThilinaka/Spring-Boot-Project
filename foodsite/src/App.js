@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -40,8 +40,11 @@ import Profile from './component/Profile/Profile';
 import Contact from './component/Contact/Contact';
 import OrderSummary from './component/Dishes/OrderSummary';
 
-export default function App() {
-  const showNavbar = true; // Show navbar on all pages, can be made dynamic
+function Layout() {
+  const location = useLocation();
+
+  // Hide navbar only on /foodlist page
+  const showNavbar = location.pathname !== '/foodlist';
 
   React.useEffect(() => {
     AOS.init({
@@ -54,7 +57,7 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
       {showNavbar && <Navbar />}
 
       <Routes>
@@ -103,6 +106,14 @@ export default function App() {
           </>
         )}
       </Routes>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Layout />
     </BrowserRouter>
   );
 }

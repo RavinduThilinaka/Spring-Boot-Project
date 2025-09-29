@@ -3,7 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import UserService from "../Register/UserService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faEnvelope, faPhone, faCalendar, faSpinner, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { 
+  faMapMarkerAlt, 
+  faEnvelope, 
+  faPhone, 
+  faSpinner, 
+  faCheckCircle,
+  faPaperPlane,
+  faUser,
+  faComment,
+  faGlobe
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 export default function ContactPage() {
@@ -49,6 +59,7 @@ export default function ContactPage() {
             setTimeout(() => {
                 setProcessing(false);
                 setShowSuccessPopup(true);
+                setFormData({ name: "", email: "", message: "" });
             }, 2000);
         } catch (error) {
             console.error("Error", error);
@@ -58,120 +69,253 @@ export default function ContactPage() {
         }
     };
 
+    const socialLinks = [
+        { icon: faGlobe, color: "hover:text-blue-600", label: "Facebook", href: "#" },
+        { icon: faGlobe, color: "hover:text-blue-400", label: "Twitter", href: "#" },
+        { icon: faGlobe, color: "hover:text-pink-600", label: "Instagram", href: "#" },
+        { icon: faGlobe, color: "hover:text-blue-700", label: "LinkedIn", href: "#" },
+    ];
+
+    const contactInfo = [
+        {
+            icon: faPhone,
+            title: "Call Us",
+            details: "+94 123 456 789",
+            description: "Mon to Fri 9am to 6pm"
+        },
+        {
+            icon: faEnvelope,
+            title: "Email Us",
+            details: "contact@gmail.com",
+            description: "Send us your query anytime!"
+        },
+        {
+            icon: faMapMarkerAlt,
+            title: "Visit Us",
+            details: "123 Street, Polonnaruwa",
+            description: "Sri Lanka"
+        }
+    ];
+
     return (
-        <div className="antialiased bg-gray-100 flex w-full min-h-screen justify-center items-center p-8">
+        <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-cyan-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+            {/* Main Container */}
             <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="relative flex flex-col md:flex-row bg-green-600 max-w-6xl w-full p-12 sm:p-16 rounded-2xl shadow-2xl overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="max-w-6xl w-full"
             >
-                <motion.div
-                    initial={{ x: -100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="absolute z-0 w-60 h-60 bg-teal-400 rounded-full -top-14 -left-14"
-                ></motion.div>
-                <motion.div
-                    initial={{ x: 100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="absolute z-0 w-60 h-60 bg-teal-500 rounded-full -bottom-14 -right-14"
-                ></motion.div>
+                <div className="grid lg:grid-cols-2 gap-8">
+                    {/* Contact Information Section */}
+                    <motion.div
+                        initial={{ x: -50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden"
+                    >
+                        {/* Background Decorations */}
+                        <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-x-16 -translate-y-16"></div>
+                        <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-24 translate-y-24"></div>
+                        
+                        <div className="relative z-10">
+                            <motion.h1 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                                className="text-4xl lg:text-5xl font-bold mb-6"
+                            >
+                                Get In Touch
+                            </motion.h1>
+                            
+                            <motion.p 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-emerald-100 text-lg mb-12 leading-relaxed"
+                            >
+                                We're here to help and answer any questions you might have. 
+                                We look forward to hearing from you!
+                            </motion.p>
 
-                <div className="relative z-10 flex flex-col space-y-8 justify-between w-full md:w-1/2 text-white">
-                    <h1 className="font-bold text-5xl tracking-wide">Contact Us</h1>
-                    <p className="text-cyan-100 text-lg">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis explicabo cumque assumenda!
-                    </p>
-                    <div className="flex flex-col space-y-4">
-                        <div className="flex items-center space-x-2">
-                            <FontAwesomeIcon icon={faPhone} className="text-teal-300 text-xl" />
-                            <span className="text-cyan-100">+94 123456789</span>
+                            {/* Contact Info Cards */}
+                            <div className="space-y-6 mb-12">
+                                {contactInfo.map((item, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ x: -30, opacity: 0 }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        transition={{ delay: 0.6 + index * 0.1 }}
+                                        className="flex items-start space-x-4 p-4 rounded-2xl bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-all duration-300"
+                                    >
+                                        <div className="p-3 bg-white/20 rounded-xl">
+                                            <FontAwesomeIcon icon={item.icon} className="text-xl" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
+                                            <p className="font-medium text-emerald-50">{item.details}</p>
+                                            <p className="text-emerald-100 text-sm mt-1">{item.description}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Social Links */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.9 }}
+                                className="flex space-x-4"
+                            >
+                                {socialLinks.map((social, index) => (
+                                    <motion.a
+                                        key={index}
+                                        href={social.href}
+                                        whileHover={{ scale: 1.1, y: -2 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white ${social.color} transition-all duration-300 hover:bg-white/30`}
+                                        title={social.label}
+                                    >
+                                        <FontAwesomeIcon icon={social.icon} className="text-lg" />
+                                    </motion.a>
+                                ))}
+                            </motion.div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                            <FontAwesomeIcon icon={faEnvelope} className="text-teal-300 text-xl" />
-                            <span className="text-cyan-100">contact@gmail.com</span>
+                    </motion.div>
+
+                    {/* Contact Form Section */}
+                    <motion.div
+                        initial={{ x: 50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        className="bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-12 shadow-2xl"
+                    >
+                        <div className="mb-8">
+                            <motion.h2 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-3xl font-bold text-gray-800 dark:text-white mb-3"
+                            >
+                                Send us a Message
+                            </motion.h2>
+                            <motion.p 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                                className="text-gray-600 dark:text-gray-300"
+                            >
+                                Fill out the form below and we'll get back to you as soon as possible.
+                            </motion.p>
                         </div>
-                        <div className="flex items-center space-x-2">
-                            <FontAwesomeIcon icon={faMapMarkerAlt} className="text-teal-300 text-xl" />
-                            <span className="text-cyan-100">123 Street, Polonnaruwa</span>
-                        </div>
-                    </div>
-                    <div className="flex space-x-4 text-lg">
-                        <a href="#" className="text-white hover:text-teal-300">
-                            <ion-icon name="logo-facebook"></ion-icon>
-                        </a>
-                        <a href="#" className="text-white hover:text-teal-300">
-                            <ion-icon name="logo-linkedin"></ion-icon>
-                        </a>
-                        <a href="#" className="text-white hover:text-teal-300">
-                            <ion-icon name="logo-github"></ion-icon>
-                        </a>
-                        <a href="#" className="text-white hover:text-teal-300">
-                            <ion-icon name="logo-whatsapp"></ion-icon>
-                        </a>
-                    </div>
+
+                        <form className="space-y-6" onSubmit={handleSubmit}>
+                            {/* Name Field */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.7 }}
+                            >
+                                <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <FontAwesomeIcon icon={faUser} className="mr-2 text-emerald-600" />
+                                    Your Name
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    name="name"
+                                    required
+                                    placeholder="Enter your full name"
+                                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 transition-all duration-300"
+                                />
+                            </motion.div>
+
+                            {/* Email Field */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.8 }}
+                            >
+                                <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <FontAwesomeIcon icon={faEnvelope} className="mr-2 text-emerald-600" />
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    name="email"
+                                    required
+                                    placeholder="Enter your email address"
+                                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 transition-all duration-300"
+                                />
+                            </motion.div>
+
+                            {/* Message Field */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.9 }}
+                            >
+                                <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <FontAwesomeIcon icon={faComment} className="mr-2 text-emerald-600" />
+                                    Your Message
+                                </label>
+                                <textarea
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    name="message"
+                                    required
+                                    rows="5"
+                                    placeholder="Tell us how we can help you..."
+                                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 transition-all duration-300 resize-none"
+                                />
+                            </motion.div>
+
+                            {/* Submit Button */}
+                            <motion.button
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.0 }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                type="submit"
+                                disabled={loading}
+                                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                            >
+                                {loading ? (
+                                    <FontAwesomeIcon icon={faSpinner} spin className="text-xl" />
+                                ) : (
+                                    <>
+                                        <span>Send Message</span>
+                                        <FontAwesomeIcon icon={faPaperPlane} />
+                                    </>
+                                )}
+                            </motion.button>
+                        </form>
+                    </motion.div>
                 </div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative z-10 bg-white rounded-2xl shadow-lg p-10 text-gray-600 w-full md:w-1/2 max-w-lg"
-                >
-                    <form className="flex flex-col space-y-6" onSubmit={handleSubmit}>
-                        <label className="text-lg font-semibold">Your Name</label>
-                        <input
-                            type="text"
-                            value={formData.name}
-                            onChange={handleChange}
-                            name="name"
-                            placeholder="Enter your name"
-                            className="ring-2 ring-gray-300 w-full rounded-lg px-5 py-3 outline-none focus:ring-green-700 transition duration-200"
-                        />
-
-                        <label className="text-lg font-semibold">Email</label>
-                        <input
-                            type="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            name="email"
-                            placeholder="Enter your email"
-                            className="ring-2 ring-gray-300 w-full rounded-lg px-5 py-3 outline-none focus:ring-green-700 transition duration-200"
-                        />
-
-                        <label className="text-lg font-semibold">Message</label>
-                        <textarea
-                            value={formData.message}
-                            onChange={handleChange}
-                            name="message"
-                            placeholder="Message"
-                            className="ring-2 ring-gray-300 w-full rounded-lg px-5 py-3 outline-none focus:ring-green-700 transition duration-200"
-                        />
-
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            type="submit"
-                            className="self-end bg-cyan-500 hover:bg-cyan-600 transition duration-200 text-white font-bold rounded-lg px-8 py-3 text-lg"
-                        >
-                            SEND MESSAGE
-                        </motion.button>
-                    </form>
-                </motion.div>
             </motion.div>
 
-            {/* Loading Overlay */}
+            {/* Processing Overlay */}
             <AnimatePresence>
                 {processing && (
                     <motion.div
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.6 }}
+                        animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black z-50 flex justify-center items-center"
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center"
                     >
-                        <FontAwesomeIcon icon={faSpinner} spin className="text-white text-6xl" />
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            className="bg-white dark:bg-gray-800 rounded-2xl p-8 flex flex-col items-center space-y-4"
+                        >
+                            <FontAwesomeIcon icon={faSpinner} spin className="text-emerald-600 text-4xl" />
+                            <p className="text-gray-700 dark:text-gray-300 font-medium">Sending your message...</p>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -180,26 +324,57 @@ export default function ContactPage() {
             <AnimatePresence>
                 {showSuccessPopup && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.5 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
                     >
-                        <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-                            <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 text-6xl mb-3" />
-                            <h3 className="text-xl font-semibold text-gray-700">Message Sent Successfully!</h3>
-                            <p className="text-gray-500 mb-4">Thank you for contacting us. We will get back to you shortly.</p>
-                            <button
-                                onClick={() => {
-                                    setShowSuccessPopup(false);
-                                    navigate("/"); // Navigate to the home page
-                                }}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+                            className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full text-center"
+                        >
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.2, type: "spring" }}
+                                className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center mx-auto mb-4"
                             >
-                                Close
-                            </button>
-                        </div>
+                                <FontAwesomeIcon icon={faCheckCircle} className="text-emerald-600 text-4xl" />
+                            </motion.div>
+                            
+                            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                                Message Sent!
+                            </h3>
+                            
+                            <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Thank you for reaching out! We've received your message and will get back to you within 24 hours.
+                            </p>
+                            
+                            <div className="flex space-x-3">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => setShowSuccessPopup(false)}
+                                    className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-3 rounded-xl font-medium transition-colors hover:bg-gray-300 dark:hover:bg-gray-600"
+                                >
+                                    Stay Here
+                                </motion.button>
+                                
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => {
+                                        setShowSuccessPopup(false);
+                                        navigate("/");
+                                    }}
+                                    className="flex-1 bg-emerald-600 text-white py-3 rounded-xl font-medium transition-colors hover:bg-emerald-700"
+                                >
+                                    Go Home
+                                </motion.button>
+                            </div>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

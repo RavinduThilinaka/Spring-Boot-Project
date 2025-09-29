@@ -1,73 +1,158 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiShoppingCart, FiPlus, FiMinus, FiX, FiChevronRight, FiStar } from 'react-icons/fi';
+import { FiShoppingCart, FiPlus, FiMinus, FiX, FiChevronRight, FiStar, FiHeart, FiSearch, FiClock } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// Import available images
-import Food1 from '../../assets/rotate.png';
-import Food2 from '../../assets/rotate2.png';
-import Food3 from '../../assets/rotate3.png';
-import Logo from "../../assets/foodlogo.png";
-
-// Fallback image
-const fallbackImage = Food1;
 
 const FoodList = () => {
   const navigate = useNavigate();
   
-  // Enhanced product data with descriptions
+  // Enhanced product data with more details
   const products = [
     { 
-      id: 0, 
-      image: Food1, 
+      id: 1, 
+      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop',
       title: 'Gourmet Burger', 
       price: 20, 
       rating: 4.8,
-      description: 'Juicy beef patty with cheddar cheese, crispy bacon, fresh lettuce, and our special sauce served on a brioche bun'
-    },
-    { 
-      id: 1, 
-      image: Food2, 
-      title: 'Truffle Pizza', 
-      price: 60, 
-      rating: 4.9,
-      description: 'Wood-fired pizza with black truffle paste, mozzarella, wild mushrooms, and a drizzle of truffle oil'
+      reviews: 124,
+      description: 'Juicy beef patty with cheddar cheese, crispy bacon, fresh lettuce, and our special sauce served on a brioche bun',
+      category: 'Main Course',
+      cookTime: '15-20 min',
+      spicy: 1,
+      popular: true
     },
     { 
       id: 2, 
-      image: Food3, 
-      title: 'Lobster Pasta', 
-      price: 120, 
-      rating: 5.0,
-      description: 'Fresh lobster meat with handmade tagliatelle in a creamy tomato bisque sauce with garlic and herbs'
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop',
+      title: 'Truffle Pizza', 
+      price: 60, 
+      rating: 4.9,
+      reviews: 89,
+      description: 'Wood-fired pizza with black truffle paste, mozzarella, wild mushrooms, and a drizzle of truffle oil',
+      category: 'Main Course',
+      cookTime: '20-25 min',
+      spicy: 0,
+      popular: true
     },
     { 
       id: 3, 
-      image: fallbackImage, 
-      title: 'Sushi Platter', 
-      price: 85, 
-      rating: 4.7,
-      description: 'Chef\'s selection of 12 premium sushi pieces including tuna, salmon, and sea bass with wasabi and pickled ginger'
+      image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&h=300&fit=crop',
+      title: 'Lobster Pasta', 
+      price: 120, 
+      rating: 5.0,
+      reviews: 67,
+      description: 'Fresh lobster meat with handmade tagliatelle in a creamy tomato bisque sauce with garlic and herbs',
+      category: 'Main Course',
+      cookTime: '25-30 min',
+      spicy: 1,
+      popular: false
     },
     { 
       id: 4, 
-      image: fallbackImage, 
+      image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&h=300&fit=crop',
+      title: 'Sushi Platter', 
+      price: 85, 
+      rating: 4.7,
+      reviews: 156,
+      description: 'Chef\'s selection of 12 premium sushi pieces including tuna, salmon, and sea bass with wasabi and pickled ginger',
+      category: 'Appetizer',
+      cookTime: '10-15 min',
+      spicy: 2,
+      popular: true
+    },
+    { 
+      id: 5, 
+      image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&h=300&fit=crop',
       title: 'Chocolate Soufflé', 
       price: 45, 
       rating: 4.9,
-      description: 'Warm chocolate soufflé with a molten center, served with vanilla bean ice cream and raspberry coulis'
+      reviews: 203,
+      description: 'Warm chocolate soufflé with a molten center, served with vanilla bean ice cream and raspberry coulis',
+      category: 'Dessert',
+      cookTime: '12-15 min',
+      spicy: 0,
+      popular: false
     },
+    { 
+      id: 6, 
+      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop',
+      title: 'Mediterranean Bowl', 
+      price: 35, 
+      rating: 4.6,
+      reviews: 78,
+      description: 'Fresh quinoa with roasted vegetables, feta cheese, olives, and lemon herb dressing',
+      category: 'Healthy',
+      cookTime: '10-12 min',
+      spicy: 1,
+      popular: false
+    },
+    { 
+      id: 7, 
+      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop',
+      title: 'Grilled Salmon', 
+      price: 42, 
+      rating: 4.8,
+      reviews: 134,
+      description: 'Atlantic salmon fillet with lemon butter sauce, roasted asparagus, and wild rice',
+      category: 'Main Course',
+      cookTime: '18-22 min',
+      spicy: 1,
+      popular: true
+    },
+    { 
+      id: 8, 
+      image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop',
+      title: 'Margherita Pizza', 
+      price: 28, 
+      rating: 4.5,
+      reviews: 189,
+      description: 'Classic pizza with San Marzano tomatoes, fresh mozzarella, basil, and extra virgin olive oil',
+      category: 'Main Course',
+      cookTime: '12-15 min',
+      spicy: 0,
+      popular: false
+    }
   ];
 
   const [cart, setCart] = useState([]);
   const [isCartVisible, setIsCartVisible] = useState(false);
-  const [expandedDescriptions, setExpandedDescriptions] = useState({});
+  const [favorites, setFavorites] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [addedItem, setAddedItem] = useState(null);
+  const [sortBy, setSortBy] = useState('default');
 
-  const toggleDescription = (id) => {
-    setExpandedDescriptions(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+  const categories = ['All', ...new Set(products.map(product => product.category))];
+
+  // Filter and sort products
+  const filteredProducts = products
+    .filter(product => {
+      const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           product.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'price-low':
+          return a.price - b.price;
+        case 'price-high':
+          return b.price - a.price;
+        case 'rating':
+          return b.rating - a.rating;
+        case 'popular':
+          return (b.popular === a.popular) ? 0 : b.popular ? -1 : 1;
+        default:
+          return 0;
+      }
+    });
+
+  const toggleFavorite = (productId) => {
+    setFavorites(prev => 
+      prev.includes(productId) 
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    );
   };
 
   const addToCart = (product) => {
@@ -80,7 +165,13 @@ const FoodList = () => {
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
+    
     setIsCartVisible(true);
+    setAddedItem(product.id);
+    
+    setTimeout(() => {
+      setAddedItem(null);
+    }, 2000);
   };
 
   const increaseQuantity = (productId) => {
@@ -94,7 +185,7 @@ const FoodList = () => {
   const decreaseQuantity = (productId) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
+        item.id === productId ? { ...item, quantity: Math.max(0, item.quantity - 1) } : item
       ).filter((item) => item.quantity > 0)
     );
   };
@@ -104,270 +195,494 @@ const FoodList = () => {
   };
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const deliveryFee = total > 50 ? 0 : 5;
+  const cartTotal = total + deliveryFee;
 
   const confirmOrder = () => {
     if (cart.length === 0) return;
-    navigate("/orsummery", { state: { cart } });
+    navigate("/order-summary", { state: { cart, total: cartTotal } });
   };
 
-  const handleImageError = (e) => {
-    e.target.src = fallbackImage;
+  const getCartItemCount = () => {
+    return cart.reduce((acc, item) => acc + item.quantity, 0);
+  };
+
+  const getSpicyLevel = (level) => {
+    const peppers = ['🌶️', '🌶️🌶️', '🌶️🌶️🌶️'];
+    return level > 0 ? peppers[level - 1] : '';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 dark:from-gray-900 dark:to-gray-800 dark:text-white">
-      {/* Floating decorative elements */}
-      <div className="fixed top-20 left-10 w-32 h-32 rounded-full bg-indigo-100 dark:bg-indigo-900 opacity-20 blur-xl animate-float1"></div>
-      <div className="fixed bottom-20 right-10 w-40 h-40 rounded-full bg-green-100 dark:bg-green-900 opacity-20 blur-xl animate-float2"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 dark:text-white">
+      {/* Header Section */}
+      <motion.header 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40"
+      >
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            {/* Brand & Search */}
+            <div className="flex flex-col md:flex-row md:items-center gap-6 flex-1">
+              {/* Brand */}
+              <div className="text-center md:text-left">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
+                  Epicurean
+                </h1>
+                <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                  Culinary excellence delivered
+                </p>
+              </div>
 
-      {/* Main container */}
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.header 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg mb-8"
-        >
-          <div className="flex items-center">
-            <img 
-              src={Logo} 
-              alt="Logo" 
-              className="w-16 h-16 mr-4 object-contain"
-              onError={handleImageError}
-            />
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-green-500 bg-clip-text text-transparent">
-              Gourmet Delights
-            </h1>
+              {/* Search Bar */}
+              <div className="flex-1 max-w-2xl">
+                <div className="relative">
+                  <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 text-lg" />
+                  <input
+                    type="text"
+                    placeholder="Search dishes, ingredients, or categories..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 shadow-sm"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    >
+                      <FiX className="text-lg" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Cart & Actions */}
+            <div className="flex items-center justify-center gap-4">
+              {/* Sort Dropdown */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              >
+                <option value="default">Sort by</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+                <option value="popular">Most Popular</option>
+              </select>
+
+              {/* Cart Button */}
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsCartVisible(true)}
+                className="relative bg-gradient-to-r from-emerald-500 to-cyan-600 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2 group"
+              >
+                <FiShoppingCart className="text-lg group-hover:scale-110 transition-transform" />
+                <span>Cart</span>
+                {cart.length > 0 && (
+                  <motion.span 
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border-2 border-white dark:border-slate-900"
+                  >
+                    {getCartItemCount()}
+                  </motion.span>
+                )}
+              </motion.button>
+            </div>
           </div>
-          
-          <button 
-            onClick={() => setIsCartVisible(!isCartVisible)}
-            className="relative p-3 bg-gradient-to-r from-indigo-100 to-green-100 dark:from-gray-700 dark:to-gray-600 rounded-full shadow-md hover:shadow-lg transition-all"
-          >
-            <FiShoppingCart className="text-indigo-600 dark:text-indigo-300 text-xl" />
-            {cart.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
-                {cart.reduce((acc, item) => acc + item.quantity, 0)}
-              </span>
-            )}
-          </button>
-        </motion.header>
 
-        {/* Content */}
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Products Grid - Enhanced cards with larger images */}
+          {/* Category Filters */}
           <motion.div 
-            layout
-            className="w-full lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-wrap gap-3 mt-6 justify-center"
           >
-            {products.map((product) => (
+            {categories.map((category) => (
+              <motion.button
+                key={category}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-300 border-2 ${
+                  selectedCategory === category
+                    ? 'bg-emerald-500 text-white border-emerald-500 shadow-lg'
+                    : 'bg-white/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-700'
+                }`}
+              >
+                {category}
+              </motion.button>
+            ))}
+          </motion.div>
+        </div>
+      </motion.header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        {/* Results Info */}
+        <div className="flex justify-between items-center mb-8">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-slate-600 dark:text-slate-400"
+          >
+            Showing {filteredProducts.length} of {products.length} dishes
+          </motion.p>
+        </div>
+
+        {/* Products Grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        >
+          <AnimatePresence>
+            {filteredProducts.map((product) => (
               <motion.div
                 key={product.id}
+                layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ y: -5 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden transition-all duration-300 flex flex-col"
-                style={{ minHeight: '480px' }} // Slightly increased height
+                exit={{ opacity: 0, scale: 0.9 }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group"
               >
-                {/* Larger image container */}
-                <div className="relative h-64 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                {/* Image Container */}
+                <div className="relative h-48 overflow-hidden">
                   <motion.img
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.5 }}
-                    onError={handleImageError}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 right-3 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full flex items-center">
-                    <FiStar className="mr-1" /> {product.rating}
+                  
+                  {/* Overlay Badges */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Favorite Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => toggleFavorite(product.id)}
+                    className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-800/90 rounded-full backdrop-blur-sm hover:scale-110 transition-transform"
+                  >
+                    <FiHeart 
+                      className={`text-lg ${
+                        favorites.includes(product.id) 
+                          ? 'fill-rose-500 text-rose-500' 
+                          : 'text-slate-400 hover:text-rose-400'
+                      } transition-colors`} 
+                    />
+                  </motion.button>
+
+                  {/* Popular Badge */}
+                  {product.popular && (
+                    <div className="absolute top-3 left-3 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                      Popular
+                    </div>
+                  )}
+
+                  {/* Rating & Cook Time */}
+                  <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+                    <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-sm font-medium flex items-center space-x-1 backdrop-blur-sm">
+                      <FiStar className="fill-yellow-400 text-yellow-400" />
+                      <span>{product.rating}</span>
+                      <span className="text-slate-300">({product.reviews})</span>
+                    </div>
+                    
+                    <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full text-sm flex items-center space-x-1">
+                      <FiClock className="text-slate-500" />
+                      <span>{product.cookTime}</span>
+                    </div>
                   </div>
                 </div>
-                
-                {/* Content area with description */}
-                <div className="p-4 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{product.title}</h3>
-                  
-                  {/* Description with read more/less */}
-                  <div className="mb-4 flex-grow">
-                    <p className={`text-gray-600 dark:text-gray-300 text-sm ${expandedDescriptions[product.id] ? '' : 'line-clamp-3'}`}>
-                      {product.description}
-                    </p>
-                    <button 
-                      onClick={() => toggleDescription(product.id)}
-                      className="text-indigo-600 dark:text-indigo-400 text-sm font-medium mt-1"
-                    >
-                      {expandedDescriptions[product.id] ? 'Show less' : 'Read more'}
-                    </button>
-                  </div>
-                  
-                  <div className="flex justify-between items-center mt-auto">
-                    <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                      ${product.price}.00
+
+                {/* Content */}
+                <div className="p-5">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-lg text-slate-800 dark:text-white truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                        {product.title}
+                      </h3>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full">
+                          {product.category}
+                        </span>
+                        {product.spicy > 0 && (
+                          <span className="text-xs text-rose-600 dark:text-rose-400">
+                            {getSpicyLevel(product.spicy)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400 ml-3">
+                      ${product.price}
                     </span>
-                    <motion.button
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => addToCart(product)}
-                      className="bg-gradient-to-r from-indigo-500 to-green-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all"
-                    >
-                      Add to Cart
-                    </motion.button>
                   </div>
+
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2 leading-relaxed">
+                    {product.description}
+                  </p>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => addToCart(product)}
+                    className="w-full bg-gradient-to-r from-emerald-500 to-cyan-600 text-white py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 group"
+                  >
+                    <span>Add to Cart</span>
+                    <FiPlus className="group-hover:scale-110 transition-transform" />
+                  </motion.button>
                 </div>
               </motion.div>
             ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Empty State */}
+        {filteredProducts.length === 0 && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-20"
+          >
+            <div className="text-8xl mb-6">🍽️</div>
+            <h3 className="text-2xl font-bold text-slate-600 dark:text-slate-300 mb-3">
+              No dishes found
+            </h3>
+            <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-6">
+              We couldn't find any dishes matching your criteria. Try adjusting your search or filters.
+            </p>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('All');
+                setSortBy('default');
+              }}
+              className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-medium hover:bg-emerald-600 transition-colors"
+            >
+              Reset Filters
+            </button>
           </motion.div>
+        )}
+      </main>
 
-          {/* Cart Sidebar */}
-          <AnimatePresence>
-            {isCartVisible && (
-              <motion.div 
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 100 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="fixed inset-0 z-50 lg:static lg:z-auto lg:w-1/4"
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-50 lg:hidden" onClick={() => setIsCartVisible(false)}></div>
-                <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white dark:bg-gray-800 shadow-2xl overflow-y-auto lg:relative lg:max-w-full lg:shadow-lg">
-                  <div className="sticky top-0 bg-white dark:bg-gray-800 p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                    <h2 className="text-xl font-bold text-gray-800 dark:text-white">Your Cart</h2>
-                    <button 
+      {/* Cart Sidebar */}
+      <AnimatePresence>
+        {isCartVisible && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black bg-opacity-50 z-50"
+              onClick={() => setIsCartVisible(false)}
+            />
+
+            {/* Cart Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-50 flex flex-col border-l border-slate-200 dark:border-slate-700"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
+                    Your Order
+                  </h2>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                    {getCartItemCount()} items in cart
+                  </p>
+                </div>
+                <motion.button 
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setIsCartVisible(false)}
+                  className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+                >
+                  <FiX className="text-slate-500 dark:text-slate-400 text-xl" />
+                </motion.button>
+              </div>
+
+              {/* Cart Items */}
+              <div className="flex-1 overflow-y-auto p-6">
+                {cart.length === 0 ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-16"
+                  >
+                    <div className="text-8xl mb-6">🛒</div>
+                    <h3 className="text-xl font-bold text-slate-600 dark:text-slate-300 mb-3">
+                      Your cart is empty
+                    </h3>
+                    <p className="text-slate-500 dark:text-slate-400 mb-8">
+                      Add some delicious items to get started
+                    </p>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setIsCartVisible(false)}
-                      className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                      className="bg-emerald-500 text-white px-8 py-3 rounded-xl font-medium hover:bg-emerald-600 transition-colors"
                     >
-                      <FiX size={24} />
-                    </button>
-                  </div>
-
-                  <div className="p-4">
-                    {cart.length === 0 ? (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-8"
-                      >
-                        <FiShoppingCart className="mx-auto text-gray-400 text-4xl mb-4" />
-                        <p className="text-gray-500 dark:text-gray-400">Your cart is empty</p>
-                      </motion.div>
-                    ) : (
-                      <motion.ul layout className="space-y-4">
-                        <AnimatePresence>
-                          {cart.map((item) => (
-                            <motion.li
-                              key={item.id}
-                              layout
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: 20 }}
-                              transition={{ duration: 0.2 }}
-                              className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg shadow-sm"
-                            >
+                      Browse Menu
+                    </motion.button>
+                  </motion.div>
+                ) : (
+                  <motion.div layout className="space-y-4">
+                    <AnimatePresence>
+                      {cart.map((item) => (
+                        <motion.div
+                          key={item.id}
+                          layout
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ 
+                            opacity: 1, 
+                            x: 0,
+                            scale: addedItem === item.id ? 1.02 : 1,
+                            backgroundColor: addedItem === item.id ? 'rgba(16, 185, 129, 0.1)' : ''
+                          }}
+                          exit={{ opacity: 0, x: 20 }}
+                          transition={{ 
+                            type: "spring", 
+                            stiffness: 500, 
+                            damping: 30,
+                            backgroundColor: { duration: 0.2 }
+                          }}
+                          className="bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border-2 border-transparent hover:border-emerald-200 dark:hover:border-emerald-800 transition-all duration-300"
+                        >
+                          <div className="flex items-start space-x-4">
+                            <img 
+                              src={item.image} 
+                              alt={item.title}
+                              className="w-20 h-20 rounded-xl object-cover flex-shrink-0"
+                            />
+                            
+                            <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-start mb-2">
-                                <div className="flex items-start">
-                                  <div className="h-12 w-12 rounded-lg overflow-hidden mr-3 bg-gray-200 flex items-center justify-center">
-                                    <img 
-                                      src={item.image} 
-                                      alt={item.title} 
-                                      className="h-full w-full object-contain p-1"
-                                      onError={handleImageError}
-                                    />
-                                  </div>
-                                  <div>
-                                    <h4 className="font-medium text-gray-800 dark:text-white">{item.title}</h4>
-                                    <p className="text-indigo-600 dark:text-indigo-400 font-bold">${item.price}</p>
-                                  </div>
-                                </div>
-                                <button 
+                                <h4 className="font-semibold text-slate-800 dark:text-white truncate">
+                                  {item.title}
+                                </h4>
+                                <button
                                   onClick={() => removeItem(item.id)}
-                                  className="text-gray-400 hover:text-red-500"
+                                  className="p-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors ml-2"
                                 >
                                   <FiX />
                                 </button>
                               </div>
                               
-                              <div className="flex justify-between items-center">
-                                <div className="flex items-center space-x-2">
+                              <p className="text-emerald-600 dark:text-emerald-400 font-bold text-lg mb-3">
+                                ${item.price}
+                              </p>
+                              
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
                                   <motion.button
+                                    whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={() => decreaseQuantity(item.id)}
-                                    className="bg-gray-200 dark:bg-gray-600 p-1 rounded-full text-gray-700 dark:text-white"
+                                    className="w-9 h-9 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
                                   >
-                                    <FiMinus size={16} />
+                                    <FiMinus className="text-slate-600 dark:text-slate-300 text-sm" />
                                   </motion.button>
-                                  <span className="w-8 text-center">{item.quantity}</span>
+                                  <span className="w-8 text-center font-semibold text-slate-800 dark:text-white">
+                                    {item.quantity}
+                                  </span>
                                   <motion.button
+                                    whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={() => increaseQuantity(item.id)}
-                                    className="bg-gray-200 dark:bg-gray-600 p-1 rounded-full text-gray-700 dark:text-white"
+                                    className="w-9 h-9 bg-emerald-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors"
                                   >
-                                    <FiPlus size={16} />
+                                    <FiPlus className="text-sm" />
                                   </motion.button>
                                 </div>
-                                <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
+                                
+                                <span className="font-bold text-slate-800 dark:text-white">
+                                  ${(item.price * item.quantity).toFixed(2)}
+                                </span>
                               </div>
-                            </motion.li>
-                          ))}
-                        </AnimatePresence>
-                      </motion.ul>
-                    )}
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </motion.div>
+                )}
+              </div>
 
-                    {cart.length > 0 && (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700"
-                      >
-                        <div className="flex justify-between mb-4">
-                          <span className="font-medium">Subtotal</span>
-                          <span className="font-bold">${total.toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between mb-4">
-                          <span className="font-medium">Delivery</span>
-                          <span className="font-bold">$5.00</span>
-                        </div>
-                        <div className="flex justify-between text-lg font-bold mb-6">
-                          <span>Total</span>
-                          <span>${(total + 5).toFixed(2)}</span>
-                        </div>
-                        
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={confirmOrder}
-                          className="w-full bg-gradient-to-r from-indigo-600 to-green-500 text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center"
-                        >
-                          Checkout <FiChevronRight className="ml-2" />
-                        </motion.button>
-                      </motion.div>
+              {/* Cart Footer */}
+              {cart.length > 0 && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="border-t border-slate-200 dark:border-slate-700 p-6 space-y-4 bg-white dark:bg-slate-900"
+                >
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-600 dark:text-slate-400">Subtotal</span>
+                      <span className="font-medium">${total.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-600 dark:text-slate-400">Delivery</span>
+                      <span className="font-medium">
+                        {deliveryFee === 0 ? (
+                          <span className="text-emerald-500">Free</span>
+                        ) : (
+                          `$${deliveryFee.toFixed(2)}`
+                        )}
+                      </span>
+                    </div>
+                    {total < 50 && (
+                      <div className="text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded-lg">
+                        Add ${(50 - total).toFixed(2)} more for free delivery!
+                      </div>
                     )}
+                    <div className="flex justify-between text-lg font-bold pt-3 border-t border-slate-200 dark:border-slate-700">
+                      <span>Total</span>
+                      <span>${cartTotal.toFixed(2)}</span>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
 
-      {/* Animation styles */}
-      <style jsx>{`
-        @keyframes float1 {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(-20px) translateX(10px); }
-        }
-        @keyframes float2 {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(20px) translateX(-15px); }
-        }
-        .animate-float1 {
-          animation: float1 8s ease-in-out infinite;
-        }
-        .animate-float2 {
-          animation: float2 10s ease-in-out infinite;
-        }
-      `}</style>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={confirmOrder}
+                    className="w-full bg-gradient-to-r from-emerald-500 to-cyan-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 group"
+                  >
+                    <span>Proceed to Checkout</span>
+                    <FiChevronRight className="group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                </motion.div>
+              )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Cart Button */}
+      {cart.length > 0 && !isCartVisible && (
+        <motion.button
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="fixed bottom-6 right-6 z-30 bg-gradient-to-r from-emerald-500 to-cyan-600 text-white p-4 rounded-xl shadow-2xl hover:shadow-3xl transition-all border-2 border-white dark:border-slate-900"
+          onClick={() => setIsCartVisible(true)}
+        >
+          <div className="flex items-center space-x-2">
+            <FiShoppingCart className="text-xl" />
+            <div className="text-left">
+              <div className="font-bold text-lg leading-none">${cartTotal.toFixed(2)}</div>
+              <div className="text-xs opacity-90">{getCartItemCount()} items</div>
+            </div>
+          </div>
+        </motion.button>
+      )}
     </div>
   );
 };
