@@ -213,12 +213,12 @@ const FoodList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 dark:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 dark:text-white">
       {/* Header Section */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40"
+        className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-amber-100 dark:border-gray-700 sticky top-0 z-40"
       >
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -226,10 +226,10 @@ const FoodList = () => {
             <div className="flex flex-col md:flex-row md:items-center gap-6 flex-1">
               {/* Brand */}
               <div className="text-center md:text-left">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
-                  Epicurean
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                  FoodieHub
                 </h1>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
                   Culinary excellence delivered
                 </p>
               </div>
@@ -237,18 +237,18 @@ const FoodList = () => {
               {/* Search Bar */}
               <div className="flex-1 max-w-2xl">
                 <div className="relative">
-                  <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 text-lg" />
+                  <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
                   <input
                     type="text"
                     placeholder="Search dishes, ingredients, or categories..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 shadow-sm"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border border-amber-200 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 shadow-sm"
                   />
                   {searchTerm && (
                     <button
                       onClick={() => setSearchTerm('')}
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                     >
                       <FiX className="text-lg" />
                     </button>
@@ -263,7 +263,7 @@ const FoodList = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="bg-white dark:bg-gray-800 border border-amber-200 dark:border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-gray-700 dark:text-gray-300"
               >
                 <option value="default">Sort by</option>
                 <option value="price-low">Price: Low to High</option>
@@ -277,7 +277,7 @@ const FoodList = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsCartVisible(true)}
-                className="relative bg-gradient-to-r from-emerald-500 to-cyan-600 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2 group"
+                className="relative bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2 group"
               >
                 <FiShoppingCart className="text-lg group-hover:scale-110 transition-transform" />
                 <span>Cart</span>
@@ -285,7 +285,7 @@ const FoodList = () => {
                   <motion.span 
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border-2 border-white dark:border-slate-900"
+                    className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border-2 border-white dark:border-gray-900"
                   >
                     {getCartItemCount()}
                   </motion.span>
@@ -308,8 +308,8 @@ const FoodList = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-300 border-2 ${
                   selectedCategory === category
-                    ? 'bg-emerald-500 text-white border-emerald-500 shadow-lg'
-                    : 'bg-white/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-700'
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-500 shadow-lg'
+                    : 'bg-white/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 border-amber-200 dark:border-gray-600 hover:border-amber-300 dark:hover:border-amber-700'
                 }`}
               >
                 {category}
@@ -326,7 +326,7 @@ const FoodList = () => {
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-slate-600 dark:text-slate-400"
+            className="text-gray-600 dark:text-gray-400"
           >
             Showing {filteredProducts.length} of {products.length} dishes
           </motion.p>
@@ -346,7 +346,7 @@ const FoodList = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-amber-100 dark:border-gray-700 group"
               >
                 {/* Image Container */}
                 <div className="relative h-48 overflow-hidden">
@@ -364,13 +364,13 @@ const FoodList = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => toggleFavorite(product.id)}
-                    className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-800/90 rounded-full backdrop-blur-sm hover:scale-110 transition-transform"
+                    className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-gray-800/90 rounded-full backdrop-blur-sm hover:scale-110 transition-transform"
                   >
                     <FiHeart 
                       className={`text-lg ${
                         favorites.includes(product.id) 
                           ? 'fill-rose-500 text-rose-500' 
-                          : 'text-slate-400 hover:text-rose-400'
+                          : 'text-gray-400 hover:text-rose-400'
                       } transition-colors`} 
                     />
                   </motion.button>
@@ -387,11 +387,11 @@ const FoodList = () => {
                     <div className="bg-black/70 text-white px-3 py-1.5 rounded-full text-sm font-medium flex items-center space-x-1 backdrop-blur-sm">
                       <FiStar className="fill-yellow-400 text-yellow-400" />
                       <span>{product.rating}</span>
-                      <span className="text-slate-300">({product.reviews})</span>
+                      <span className="text-gray-300">({product.reviews})</span>
                     </div>
                     
-                    <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full text-sm flex items-center space-x-1">
-                      <FiClock className="text-slate-500" />
+                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full text-sm flex items-center space-x-1">
+                      <FiClock className="text-gray-500" />
                       <span>{product.cookTime}</span>
                     </div>
                   </div>
@@ -401,11 +401,11 @@ const FoodList = () => {
                 <div className="p-5">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-lg text-slate-800 dark:text-white truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      <h3 className="font-bold text-lg text-gray-800 dark:text-white truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                         {product.title}
                       </h3>
                       <div className="flex items-center space-x-2 mt-1">
-                        <span className="text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded-full">
                           {product.category}
                         </span>
                         {product.spicy > 0 && (
@@ -415,12 +415,12 @@ const FoodList = () => {
                         )}
                       </div>
                     </div>
-                    <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400 ml-3">
+                    <span className="text-xl font-bold text-amber-600 dark:text-amber-400 ml-3">
                       ${product.price}
                     </span>
                   </div>
 
-                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-2 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2 leading-relaxed">
                     {product.description}
                   </p>
 
@@ -428,7 +428,7 @@ const FoodList = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => addToCart(product)}
-                    className="w-full bg-gradient-to-r from-emerald-500 to-cyan-600 text-white py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 group"
+                    className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 group"
                   >
                     <span>Add to Cart</span>
                     <FiPlus className="group-hover:scale-110 transition-transform" />
@@ -447,10 +447,10 @@ const FoodList = () => {
             className="text-center py-20"
           >
             <div className="text-8xl mb-6">🍽️</div>
-            <h3 className="text-2xl font-bold text-slate-600 dark:text-slate-300 mb-3">
+            <h3 className="text-2xl font-bold text-gray-600 dark:text-gray-300 mb-3">
               No dishes found
             </h3>
-            <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-6">
+            <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
               We couldn't find any dishes matching your criteria. Try adjusting your search or filters.
             </p>
             <button
@@ -459,7 +459,7 @@ const FoodList = () => {
                 setSelectedCategory('All');
                 setSortBy('default');
               }}
-              className="bg-emerald-500 text-white px-6 py-3 rounded-xl font-medium hover:bg-emerald-600 transition-colors"
+              className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all duration-300"
             >
               Reset Filters
             </button>
@@ -486,15 +486,15 @@ const FoodList = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-50 flex flex-col border-l border-slate-200 dark:border-slate-700"
+              className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-gray-900 shadow-2xl z-50 flex flex-col border-l border-amber-100 dark:border-gray-700"
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+              <div className="flex items-center justify-between p-6 border-b border-amber-100 dark:border-gray-700 bg-white dark:bg-gray-900">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                     Your Order
                   </h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
                     {getCartItemCount()} items in cart
                   </p>
                 </div>
@@ -502,9 +502,9 @@ const FoodList = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsCartVisible(false)}
-                  className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+                  className="p-2 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-colors"
                 >
-                  <FiX className="text-slate-500 dark:text-slate-400 text-xl" />
+                  <FiX className="text-gray-500 dark:text-gray-400 text-xl" />
                 </motion.button>
               </div>
 
@@ -517,17 +517,17 @@ const FoodList = () => {
                     className="text-center py-16"
                   >
                     <div className="text-8xl mb-6">🛒</div>
-                    <h3 className="text-xl font-bold text-slate-600 dark:text-slate-300 mb-3">
+                    <h3 className="text-xl font-bold text-gray-600 dark:text-gray-300 mb-3">
                       Your cart is empty
                     </h3>
-                    <p className="text-slate-500 dark:text-slate-400 mb-8">
+                    <p className="text-gray-500 dark:text-gray-400 mb-8">
                       Add some delicious items to get started
                     </p>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setIsCartVisible(false)}
-                      className="bg-emerald-500 text-white px-8 py-3 rounded-xl font-medium hover:bg-emerald-600 transition-colors"
+                      className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all duration-300"
                     >
                       Browse Menu
                     </motion.button>
@@ -544,7 +544,7 @@ const FoodList = () => {
                             opacity: 1, 
                             x: 0,
                             scale: addedItem === item.id ? 1.02 : 1,
-                            backgroundColor: addedItem === item.id ? 'rgba(16, 185, 129, 0.1)' : ''
+                            backgroundColor: addedItem === item.id ? 'rgba(245, 158, 11, 0.1)' : ''
                           }}
                           exit={{ opacity: 0, x: 20 }}
                           transition={{ 
@@ -553,7 +553,7 @@ const FoodList = () => {
                             damping: 30,
                             backgroundColor: { duration: 0.2 }
                           }}
-                          className="bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border-2 border-transparent hover:border-emerald-200 dark:hover:border-emerald-800 transition-all duration-300"
+                          className="bg-amber-50 dark:bg-amber-900/10 p-4 rounded-2xl border-2 border-transparent hover:border-amber-200 dark:hover:border-amber-800 transition-all duration-300"
                         >
                           <div className="flex items-start space-x-4">
                             <img 
@@ -564,7 +564,7 @@ const FoodList = () => {
                             
                             <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-start mb-2">
-                                <h4 className="font-semibold text-slate-800 dark:text-white truncate">
+                                <h4 className="font-semibold text-gray-800 dark:text-white truncate">
                                   {item.title}
                                 </h4>
                                 <button
@@ -575,7 +575,7 @@ const FoodList = () => {
                                 </button>
                               </div>
                               
-                              <p className="text-emerald-600 dark:text-emerald-400 font-bold text-lg mb-3">
+                              <p className="text-amber-600 dark:text-amber-400 font-bold text-lg mb-3">
                                 ${item.price}
                               </p>
                               
@@ -585,24 +585,24 @@ const FoodList = () => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={() => decreaseQuantity(item.id)}
-                                    className="w-9 h-9 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
+                                    className="w-9 h-9 bg-white dark:bg-gray-700 border border-amber-200 dark:border-amber-600 rounded-lg flex items-center justify-center hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors"
                                   >
-                                    <FiMinus className="text-slate-600 dark:text-slate-300 text-sm" />
+                                    <FiMinus className="text-gray-600 dark:text-gray-300 text-sm" />
                                   </motion.button>
-                                  <span className="w-8 text-center font-semibold text-slate-800 dark:text-white">
+                                  <span className="w-8 text-center font-semibold text-gray-800 dark:text-white">
                                     {item.quantity}
                                   </span>
                                   <motion.button
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={() => increaseQuantity(item.id)}
-                                    className="w-9 h-9 bg-emerald-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors"
+                                    className="w-9 h-9 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg flex items-center justify-center hover:from-amber-600 hover:to-orange-600 transition-all duration-300"
                                   >
                                     <FiPlus className="text-sm" />
                                   </motion.button>
                                 </div>
                                 
-                                <span className="font-bold text-slate-800 dark:text-white">
+                                <span className="font-bold text-gray-800 dark:text-white">
                                   ${(item.price * item.quantity).toFixed(2)}
                                 </span>
                               </div>
@@ -620,29 +620,29 @@ const FoodList = () => {
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="border-t border-slate-200 dark:border-slate-700 p-6 space-y-4 bg-white dark:bg-slate-900"
+                  className="border-t border-amber-100 dark:border-gray-700 p-6 space-y-4 bg-white dark:bg-gray-900"
                 >
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-600 dark:text-slate-400">Subtotal</span>
+                      <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
                       <span className="font-medium">${total.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-600 dark:text-slate-400">Delivery</span>
+                      <span className="text-gray-600 dark:text-gray-400">Delivery</span>
                       <span className="font-medium">
                         {deliveryFee === 0 ? (
-                          <span className="text-emerald-500">Free</span>
+                          <span className="text-amber-500">Free</span>
                         ) : (
                           `$${deliveryFee.toFixed(2)}`
                         )}
                       </span>
                     </div>
                     {total < 50 && (
-                      <div className="text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded-lg">
+                      <div className="text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 p-2 rounded-lg">
                         Add ${(50 - total).toFixed(2)} more for free delivery!
                       </div>
                     )}
-                    <div className="flex justify-between text-lg font-bold pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <div className="flex justify-between text-lg font-bold pt-3 border-t border-amber-100 dark:border-gray-700">
                       <span>Total</span>
                       <span>${cartTotal.toFixed(2)}</span>
                     </div>
@@ -652,7 +652,7 @@ const FoodList = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={confirmOrder}
-                    className="w-full bg-gradient-to-r from-emerald-500 to-cyan-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 group"
+                    className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 group"
                   >
                     <span>Proceed to Checkout</span>
                     <FiChevronRight className="group-hover:translate-x-1 transition-transform" />
@@ -671,7 +671,7 @@ const FoodList = () => {
           animate={{ scale: 1, opacity: 1 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="fixed bottom-6 right-6 z-30 bg-gradient-to-r from-emerald-500 to-cyan-600 text-white p-4 rounded-xl shadow-2xl hover:shadow-3xl transition-all border-2 border-white dark:border-slate-900"
+          className="fixed bottom-6 right-6 z-30 bg-gradient-to-r from-amber-500 to-orange-500 text-white p-4 rounded-xl shadow-2xl hover:shadow-3xl transition-all border-2 border-white dark:border-gray-900"
           onClick={() => setIsCartVisible(true)}
         >
           <div className="flex items-center space-x-2">
