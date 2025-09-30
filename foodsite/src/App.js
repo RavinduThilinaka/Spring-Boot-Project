@@ -95,7 +95,7 @@ function Layout() {
         {/* Profile & Contact */}
         <Route path="/profile/:userId" element={<Profile />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/orsummery" element={<OrderSummary />} />
+        <Route path="/order-summary" element={<OrderSummary />} />
 
         {/* Admin-only routes */}
         {UserService.adminOnly() && (

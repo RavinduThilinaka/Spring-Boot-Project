@@ -65,9 +65,29 @@ const Cart = () => {
 
   const handleBuyNow = (product) => {
     setBuying(product.id);
+    
+    // Create cart with the selected product
+    const cart = [{
+      ...product,
+      quantity: 1
+    }];
+    
+    // Calculate totals
+    const total = product.price;
+    const deliveryFee = total > 50 ? 0 : 5;
+    const cartTotal = total + deliveryFee;
+    
     setTimeout(() => {
       setBuying(null);
-      navigate(`/checkout/${product.id}`);
+      // Navigate to order summary with product details
+      navigate("/order-summary", { 
+        state: { 
+          cart: cart,
+          total: cartTotal,
+          fromOrderNow: true,
+          productDetails: product
+        } 
+      });
     }, 800);
   };
 
