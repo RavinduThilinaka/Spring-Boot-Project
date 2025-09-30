@@ -1,0 +1,85 @@
+import React from 'react';
+import Food1 from '../../assets/banner.jpg';
+import { GrSecure } from 'react-icons/gr';
+import { IoFastFood } from 'react-icons/io5';
+import { GiFoodTruck } from 'react-icons/gi';
+import { FaUtensils } from 'react-icons/fa';
+
+function Banner() {
+  return (
+    <div className="min-h-[600px] bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute top-10 left-10 text-6xl text-amber-200 dark:text-amber-900/30 opacity-60">
+        <FaUtensils />
+      </div>
+      <div className="absolute bottom-10 right-10 text-6xl text-amber-200 dark:text-amber-900/30 opacity-60">
+        <FaUtensils />
+      </div>
+      
+      <div className="container mx-auto px-4 py-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Image Section */}
+          <div 
+            data-aos="slide-up"
+            data-aos-duration="300"
+            className="relative group"
+          >
+            <img 
+              src={Food1} 
+              alt="Delicious Food"
+              className="w-full max-w-[500px] mx-auto rounded-xl shadow-2xl transform transition-all duration-500 group-hover:rotate-1 group-hover:shadow-2xl"
+            />
+            <div className="absolute -bottom-5 -right-5 bg-gradient-to-r from-amber-500 to-orange-600 text-white px-6 py-3 rounded-lg shadow-lg">
+              Fresh & Artisanal
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="space-y-8">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white leading-tight">
+              Experience <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Culinary Excellence</span> Delivered
+            </h1>
+            
+            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+              Indulge in a world where every ingredient tells a story and every dish is a masterpiece. Our chefs craft unforgettable flavors using the freshest local ingredients and time-honored recipes passed down through generations.
+              <br /><br />
+              From farm to table, we ensure each meal is prepared with passion and served with perfection. Your culinary journey to exceptional dining experiences begins right at your doorstep.
+            </p>
+
+            {/* Features */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="flex flex-col items-center p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-amber-100 dark:border-gray-700">
+                <div className="p-4 bg-amber-100 dark:bg-amber-600 rounded-full mb-3">
+                  <GrSecure className="text-2xl text-amber-600 dark:text-white" />
+                </div>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Premium Quality</span>
+              </div>
+              
+              <div className="flex flex-col items-center p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-amber-100 dark:border-gray-700">
+                <div className="p-4 bg-orange-100 dark:bg-orange-600 rounded-full mb-3">
+                  <IoFastFood className="text-2xl text-orange-600 dark:text-white" />
+                </div>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Chef's Special</span>
+              </div>
+              
+              <div className="flex flex-col items-center p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-amber-100 dark:border-gray-700">
+                <div className="p-4 bg-green-100 dark:bg-green-600 rounded-full mb-3">
+                  <GiFoodTruck className="text-2xl text-green-600 dark:text-white" />
+                </div>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Swift Delivery</span>
+              </div>
+            </div>
+
+            {/* Button */}
+            <button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+              Savor the Experience
+              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Banner;
