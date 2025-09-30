@@ -6,23 +6,20 @@ const ServiceData = [
   {
     id: 1,
     img: Img2,
-    name: 'Biryyani',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quisquam rerum delectus quae sequi, officia, quaerat quas animi, optio unde soluta fugiat a iure aut pariatur voluptatibus placeat in veritatis!',
+    name: 'Exquisite Royal Biryani',
+    description: 'A symphony of fragrant basmati rice, tender meat, and rare spices, crafted with generations of culinary wisdom. Each grain tells a story of tradition and taste.',
   },
   {
     id: 2,
     img: Img2,
-    name: 'Kebab',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quisquam rerum delectus quae sequi, officia, quaerat quas animi, optio unde soluta fugiat a iure aut pariatur voluptatibus placeat in veritatis!',
+    name: 'Divine Kebab Selection',
+    description: 'Masterfully grilled kebabs, kissed by flames and infused with ancient spice blends. A celestial experience for the discerning palate.',
   },
   {
     id: 3,
     img: Img2,
-    name: 'Curry',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quisquam rerum delectus quae sequi, officia, quaerat quas animi, optio unde soluta fugiat a iure aut pariatur voluptatibus placeat in veritatis!',
+    name: 'Velvet Artisan Curries',
+    description: 'Silken curries where spices dance in perfect harmony, slow-simmered to unlock depths of flavor that linger like cherished memories.',
   },
 ];
 
@@ -41,14 +38,12 @@ function Services() {
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-20 max-w-[400px] mx-auto">
             <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-orange-600 dark:text-white">
-              Our Services
+              🌟 Epicurean Excellence
             </p>
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Services</h1>
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Culinary Poetry</h1>
             <div className="text-xs text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Consequuntur quisquam rerum delectus quae sequi, officia, quaerat
-              quas animi, optio unde soluta fugiat a iure aut pariatur
-              voluptatibus placeat in veritatis!
+              Where ingredients transform into emotions and every bite becomes a cherished memory. 
+              Our kitchen is our canvas, flavor our masterpiece.
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 place-items-center">
