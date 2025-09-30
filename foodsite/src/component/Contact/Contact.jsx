@@ -86,19 +86,19 @@ export default function ContactPage() {
         {
             icon: faEnvelope,
             title: "Email Us",
-            details: "contact@gmail.com",
+            details: "contact@foodiehub.com",
             description: "Send us your query anytime!"
         },
         {
             icon: faMapMarkerAlt,
             title: "Visit Us",
-            details: "123 Street, Polonnaruwa",
+            details: "123 Food Street, Polonnaruwa",
             description: "Sri Lanka"
         }
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-cyan-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
             {/* Main Container */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -112,7 +112,7 @@ export default function ContactPage() {
                         initial={{ x: -50, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden"
+                        className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden"
                     >
                         {/* Background Decorations */}
                         <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-x-16 -translate-y-16"></div>
@@ -132,9 +132,9 @@ export default function ContactPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.5 }}
-                                className="text-emerald-100 text-lg mb-12 leading-relaxed"
+                                className="text-amber-100 text-lg mb-12 leading-relaxed"
                             >
-                                We're here to help and answer any questions you might have. 
+                                We're here to help and answer any questions you might have about our delicious offerings. 
                                 We look forward to hearing from you!
                             </motion.p>
 
@@ -153,8 +153,8 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
-                                            <p className="font-medium text-emerald-50">{item.details}</p>
-                                            <p className="text-emerald-100 text-sm mt-1">{item.description}</p>
+                                            <p className="font-medium text-amber-50">{item.details}</p>
+                                            <p className="text-amber-100 text-sm mt-1">{item.description}</p>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -188,7 +188,7 @@ export default function ContactPage() {
                         initial={{ x: 50, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className="bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-12 shadow-2xl"
+                        className="bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-12 shadow-2xl border border-amber-100 dark:border-gray-700"
                     >
                         <div className="mb-8">
                             <motion.h2 
@@ -205,7 +205,7 @@ export default function ContactPage() {
                                 transition={{ delay: 0.6 }}
                                 className="text-gray-600 dark:text-gray-300"
                             >
-                                Fill out the form below and we'll get back to you as soon as possible.
+                                Have questions about our menu or want to give feedback? Fill out the form below and we'll get back to you soon.
                             </motion.p>
                         </div>
 
@@ -217,7 +217,7 @@ export default function ContactPage() {
                                 transition={{ delay: 0.7 }}
                             >
                                 <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <FontAwesomeIcon icon={faUser} className="mr-2 text-emerald-600" />
+                                    <FontAwesomeIcon icon={faUser} className="mr-2 text-amber-600" />
                                     Your Name
                                 </label>
                                 <input
@@ -227,7 +227,7 @@ export default function ContactPage() {
                                     name="name"
                                     required
                                     placeholder="Enter your full name"
-                                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 transition-all duration-300"
+                                    className="w-full px-4 py-3 rounded-xl border-2 border-amber-100 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200 dark:focus:ring-amber-800 transition-all duration-300"
                                 />
                             </motion.div>
 
@@ -238,7 +238,7 @@ export default function ContactPage() {
                                 transition={{ delay: 0.8 }}
                             >
                                 <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <FontAwesomeIcon icon={faEnvelope} className="mr-2 text-emerald-600" />
+                                    <FontAwesomeIcon icon={faEnvelope} className="mr-2 text-amber-600" />
                                     Email Address
                                 </label>
                                 <input
@@ -248,7 +248,7 @@ export default function ContactPage() {
                                     name="email"
                                     required
                                     placeholder="Enter your email address"
-                                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 transition-all duration-300"
+                                    className="w-full px-4 py-3 rounded-xl border-2 border-amber-100 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200 dark:focus:ring-amber-800 transition-all duration-300"
                                 />
                             </motion.div>
 
@@ -259,7 +259,7 @@ export default function ContactPage() {
                                 transition={{ delay: 0.9 }}
                             >
                                 <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <FontAwesomeIcon icon={faComment} className="mr-2 text-emerald-600" />
+                                    <FontAwesomeIcon icon={faComment} className="mr-2 text-amber-600" />
                                     Your Message
                                 </label>
                                 <textarea
@@ -268,8 +268,8 @@ export default function ContactPage() {
                                     name="message"
                                     required
                                     rows="5"
-                                    placeholder="Tell us how we can help you..."
-                                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 transition-all duration-300 resize-none"
+                                    placeholder="Tell us about your food experience or ask us anything..."
+                                    className="w-full px-4 py-3 rounded-xl border-2 border-amber-100 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200 dark:focus:ring-amber-800 transition-all duration-300 resize-none"
                                 />
                             </motion.div>
 
@@ -282,7 +282,7 @@ export default function ContactPage() {
                                 whileTap={{ scale: 0.98 }}
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:from-amber-600 hover:to-orange-600"
                             >
                                 {loading ? (
                                     <FontAwesomeIcon icon={faSpinner} spin className="text-xl" />
@@ -311,9 +311,9 @@ export default function ContactPage() {
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.8, opacity: 0 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl p-8 flex flex-col items-center space-y-4"
+                            className="bg-white dark:bg-gray-800 rounded-2xl p-8 flex flex-col items-center space-y-4 border border-amber-100 dark:border-gray-700"
                         >
-                            <FontAwesomeIcon icon={faSpinner} spin className="text-emerald-600 text-4xl" />
+                            <FontAwesomeIcon icon={faSpinner} spin className="text-amber-600 text-4xl" />
                             <p className="text-gray-700 dark:text-gray-300 font-medium">Sending your message...</p>
                         </motion.div>
                     </motion.div>
@@ -333,15 +333,15 @@ export default function ContactPage() {
                             initial={{ scale: 0.8, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.8, opacity: 0, y: 20 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full text-center"
+                            className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full text-center border border-amber-100 dark:border-gray-700"
                         >
                             <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 transition={{ delay: 0.2, type: "spring" }}
-                                className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center mx-auto mb-4"
+                                className="w-20 h-20 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center mx-auto mb-4"
                             >
-                                <FontAwesomeIcon icon={faCheckCircle} className="text-emerald-600 text-4xl" />
+                                <FontAwesomeIcon icon={faCheckCircle} className="text-amber-600 text-4xl" />
                             </motion.div>
                             
                             <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
@@ -369,7 +369,7 @@ export default function ContactPage() {
                                         setShowSuccessPopup(false);
                                         navigate("/");
                                     }}
-                                    className="flex-1 bg-emerald-600 text-white py-3 rounded-xl font-medium transition-colors hover:bg-emerald-700"
+                                    className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-xl font-medium transition-colors hover:from-amber-600 hover:to-orange-600"
                                 >
                                     Go Home
                                 </motion.button>
