@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiShoppingCart, FiArrowRight, FiStar, FiClock, FiHeart } from 'react-icons/fi';
+import { FiShoppingCart, FiArrowRight, FiStar, FiClock, FiHeart, FiAward, FiTrendingUp, FiUser } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
 // Import food images
@@ -17,7 +17,9 @@ const products = [
     rating: 4.8, 
     prepTime: 15,
     description: 'Juicy 1/2 lb Angus beef patty with aged cheddar, crispy bacon, and special sauce on brioche bun.',
-    isPopular: true
+    isPopular: true,
+    calories: 650,
+    ingredients: ['Angus Beef', 'Brioche Bun', 'Aged Cheddar', 'Bacon', 'Special Sauce']
   },
   { 
     id: 1, 
@@ -27,7 +29,9 @@ const products = [
     rating: 4.9, 
     prepTime: 25,
     description: 'Wood-fired pizza with San Marzano sauce, fresh mozzarella, prosciutto, and truffle oil.',
-    isNew: true
+    isNew: true,
+    calories: 850,
+    ingredients: ['San Marzano Tomatoes', 'Fresh Mozzarella', 'Prosciutto', 'Truffle Oil', 'Basil']
   },
   { 
     id: 2, 
@@ -37,7 +41,9 @@ const products = [
     rating: 5.0, 
     prepTime: 20,
     description: 'Handmade pasta with lobster meat in creamy tomato bisque sauce with garlic and herbs.',
-    isChefSpecial: true
+    isChefSpecial: true,
+    calories: 720,
+    ingredients: ['Handmade Pasta', 'Lobster', 'Creamy Tomato Sauce', 'Garlic', 'Fresh Herbs']
   }
 ];
 
@@ -47,6 +53,7 @@ const Cart = () => {
   const [buying, setBuying] = useState(null);
   const [expandedDescription, setExpandedDescription] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const handleSeeAllClick = () => {
     setIsLoading(true);
@@ -68,7 +75,8 @@ const Cart = () => {
     setExpandedDescription(expandedDescription === productId ? null : productId);
   };
 
-  const toggleFavorite = (productId) => {
+  const toggleFavorite = (productId, e) => {
+    e.stopPropagation();
     setFavorites(prev => 
       prev.includes(productId) 
         ? prev.filter(id => id !== productId) 
@@ -77,47 +85,119 @@ const Cart = () => {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5 }
+      scale: 1,
+      transition: { 
+        duration: 0.6,
+        ease: "easeOut"
+      }
     },
     hover: {
-      y: -5,
-      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+      y: -15,
+      scale: 1.02,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const imageVariants = {
+    hover: {
+      scale: 1.1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 py-16 dark:from-gray-800 dark:via-gray-900 dark:to-black dark:text-white px-4">
-      {/* Decorative elements */}
-      <div className="fixed top-20 left-10 w-24 h-24 rounded-full bg-indigo-100 dark:bg-indigo-900 opacity-20 blur-xl animate-float1"></div>
-      <div className="fixed bottom-20 right-10 w-32 h-32 rounded-full bg-green-100 dark:bg-green-900 opacity-20 blur-xl animate-float2"></div>
-      
-      <div className="max-w-7xl mx-auto">
-        {/* Header section */}
-        <div className="text-center mb-16">
-          <motion.h1 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
-          >
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-green-500">Delicious Menu</span>
-          </motion.h1>
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 py-16 dark:text-white px-4 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          className="absolute top-20 left-10 w-32 h-32 rounded-full bg-amber-200 dark:bg-amber-800 opacity-20 blur-3xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2]
+          }}
+          transition={{ 
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-orange-200 dark:bg-orange-800 opacity-20 blur-3xl"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            opacity: [0.3, 0.2, 0.3]
+          }}
+          transition={{ 
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      {/* Floating Food Icons */}
+      <motion.div 
+        className="absolute top-10 left-20 text-4xl text-amber-300/40"
+        animate={{ y: [0, -20, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        🍕
+      </motion.div>
+      <motion.div 
+        className="absolute top-40 right-32 text-3xl text-orange-300/40"
+        animate={{ y: [0, 15, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      >
+        🍔
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-32 left-32 text-5xl text-amber-400/30"
+        animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      >
+        🥗
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Enhanced Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
+          <div className="inline-flex items-center gap-4 mb-6">
+            <div className="w-16 h-1 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full"></div>
+            <span className="px-6 py-3 text-sm font-bold tracking-widest text-amber-700 dark:text-amber-300 uppercase bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-amber-200 dark:border-amber-800 shadow-lg">
+              🍽️ Signature Dishes
+            </span>
+            <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"></div>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-black text-gray-800 dark:text-white mb-6 leading-tight">
+            Culinary <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 animate-gradient-x">Excellence</span>
+          </h1>
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-light"
           >
-            Crafted with love and premium ingredients
+            Handcrafted with passion, served with perfection. Experience the art of fine dining.
           </motion.p>
-        </div>
+        </motion.div>
 
-        {/* Products section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 px-4">
+        {/* Enhanced Products Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20 px-4">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -125,160 +205,255 @@ const Cart = () => {
               initial="hidden"
               animate="visible"
               whileHover="hover"
-              transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 flex flex-col border border-gray-100 dark:border-gray-700"
+              onHoverStart={() => setHoveredCard(product.id)}
+              onHoverEnd={() => setHoveredCard(null)}
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              className="relative group"
             >
-              {/* Image container */}
-              <div className="relative w-full pt-[70%] overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  onError={(e) => {
-                    e.target.onerror = null; 
-                    e.target.src = "https://source.unsplash.com/random/600x400/?food";
-                  }}
-                />
+              {/* Main Card */}
+              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/20 dark:border-gray-700/50 transition-all duration-500 h-full flex flex-col">
                 
-                {/* Badges */}
-                <div className="absolute top-3 left-3 flex flex-col space-y-2">
-                  {product.isPopular && (
-                    <span className="bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                      Popular
-                    </span>
-                  )}
-                  {product.isNew && (
-                    <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                      New
-                    </span>
-                  )}
-                  {product.isChefSpecial && (
-                    <span className="bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                      Chef's Special
-                    </span>
-                  )}
-                </div>
-                
-                {/* Favorite button */}
-                <button 
-                  onClick={() => toggleFavorite(product.id)}
-                  className={`absolute top-3 right-3 p-2 rounded-full shadow-lg transition-all duration-300 ${
-                    favorites.includes(product.id) 
-                      ? 'bg-red-500 text-white' 
-                      : 'bg-white/90 text-gray-700 hover:bg-red-100 hover:text-red-500'
-                  }`}
-                >
-                  <FiHeart className={`${favorites.includes(product.id) ? 'fill-current' : ''}`} />
-                </button>
-                
-                {/* Rating */}
-                <div className="absolute bottom-3 left-3 bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg flex items-center">
-                  <FiStar className="text-yellow-500 mr-1" />
-                  <span>{product.rating}</span>
-                </div>
-              </div>
-
-              {/* Content area */}
-              <div className="p-6 flex-grow flex flex-col">
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{product.title}</h3>
+                {/* Image Container with Overlay */}
+                <div className="relative w-full pt-[75%] overflow-hidden">
+                  <motion.img
+                    variants={imageVariants}
+                    whileHover="hover"
+                    src={product.image}
+                    alt={product.title}
+                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null; 
+                      e.target.src = "https://source.unsplash.com/random/600x400/?food";
+                    }}
+                  />
                   
-                  <div className="flex items-center space-x-4 mb-3">
-                    <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
-                      <FiClock className="mr-1" />
-                      <span>{product.prepTime} mins</span>
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Top Badges */}
+                  <div className="absolute top-4 left-4 flex flex-col space-y-2">
+                    {product.isPopular && (
+                      <motion.span 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: index * 0.3 + 0.5 }}
+                        className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-1"
+                      >
+                        <FiTrendingUp className="text-xs" />
+                        Popular
+                      </motion.span>
+                    )}
+                    {product.isNew && (
+                      <motion.span 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: index * 0.3 + 0.6 }}
+                        className="bg-gradient-to-r from-emerald-500 to-green-500 text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-1"
+                      >
+                        <FiAward className="text-xs" />
+                        New
+                      </motion.span>
+                    )}
+                    {product.isChefSpecial && (
+                      <motion.span 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: index * 0.3 + 0.7 }}
+                        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-1"
+                      >
+                        <FiUser className="text-xs" />
+                        Chef's Pick
+                      </motion.span>
+                    )}
+                  </div>
+                  
+                  {/* Favorite Button */}
+                  <motion.button 
+                    onClick={(e) => toggleFavorite(product.id, e)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`absolute top-4 right-4 p-3 rounded-full shadow-lg transition-all duration-300 ${
+                      favorites.includes(product.id) 
+                        ? 'bg-red-500 text-white' 
+                        : 'bg-white/90 text-gray-700 hover:bg-red-100 hover:text-red-500'
+                    }`}
+                  >
+                    <FiHeart className={`text-lg ${favorites.includes(product.id) ? 'fill-current' : ''}`} />
+                  </motion.button>
+                  
+                  {/* Bottom Info */}
+                  <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+                    <div className="bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-2">
+                      <FiStar className="text-amber-500" />
+                      <span>{product.rating}</span>
+                    </div>
+                    <div className="bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg flex items-center gap-2">
+                      <FiClock className="text-amber-500" />
+                      <span>{product.prepTime} min</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Area */}
+                <div className="p-6 flex-grow flex flex-col">
+                  <div className="flex-grow">
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-300">
+                      {product.title}
+                    </h3>
+                    
+                    {/* Nutrition Info */}
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="text-sm text-gray-500 dark:text-gray-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded-full">
+                        {product.calories} cal
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <div className="mb-4">
+                      <p className={`text-gray-600 dark:text-gray-300 leading-relaxed ${
+                        expandedDescription === product.id ? '' : 'line-clamp-2'
+                      }`}>
+                        {product.description}
+                      </p>
+                      <button 
+                        onClick={() => toggleDescription(product.id)}
+                        className="text-amber-600 dark:text-amber-400 text-sm font-medium hover:underline mt-2 transition-colors duration-200 flex items-center gap-1"
+                      >
+                        {expandedDescription === product.id ? 'Show less' : 'Read more'}
+                        <FiArrowRight className={`text-xs transition-transform duration-200 ${
+                          expandedDescription === product.id ? 'rotate-180' : ''
+                        }`} />
+                      </button>
+                    </div>
+
+                    {/* Ingredients */}
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Key Ingredients:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {product.ingredients.slice(0, 3).map((ingredient, idx) => (
+                          <span key={idx} className="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-1 rounded-full">
+                            {ingredient}
+                          </span>
+                        ))}
+                        {product.ingredients.length > 3 && (
+                          <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                            +{product.ingredients.length - 3} more
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Description with read more */}
-                  <p className={`text-gray-600 dark:text-gray-300 text-sm mb-4 ${expandedDescription === product.id ? '' : 'line-clamp-2'}`}>
-                    {product.description}
-                  </p>
-                  <button 
-                    onClick={() => toggleDescription(product.id)}
-                    className="text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:underline mb-4 transition-colors duration-200"
-                  >
-                    {expandedDescription === product.id ? 'Show less' : 'Read more'}
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between mt-auto">
-                  <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                    ${product.price.toFixed(2)}
-                  </span>
-                  <div className="flex space-x-2">
-                    <button 
+                  {/* Price and Action Button */}
+                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <div>
+                      <span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">
+                        ${product.price.toFixed(2)}
+                      </span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">per serving</p>
+                    </div>
+                    <motion.button 
                       onClick={() => handleBuyNow(product)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center ${
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`px-6 py-3 rounded-2xl font-bold text-white transition-all duration-300 flex items-center gap-2 ${
                         buying === product.id 
-                          ? 'bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-white' 
-                          : 'bg-gradient-to-r from-indigo-500 to-green-500 text-white hover:from-indigo-600 hover:to-green-600 hover:shadow-lg'
+                          ? 'bg-gray-400 dark:bg-gray-600' 
+                          : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 hover:shadow-xl'
                       }`}
                     >
                       {buying === product.id ? (
                         <>
-                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Processing
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                          />
+                          Ordering...
                         </>
-                      ) : 'Order Now'}
-                    </button>
+                      ) : (
+                        <>
+                          <FiShoppingCart className="text-lg" />
+                          Order Now
+                        </>
+                      )}
+                    </motion.button>
                   </div>
                 </div>
               </div>
+
+              {/* Glow Effect */}
+              {hoveredCard === product.id && (
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 rounded-3xl blur-xl opacity-20 -z-10 transition-all duration-500" />
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* See All button */}
+        {/* Enhanced See All Button */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
           className="flex justify-center"
         >
-          <button
+          <motion.button
             onClick={handleSeeAllClick}
             disabled={isLoading}
-            className="relative bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-3 px-8 rounded-full shadow-lg hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 flex items-center overflow-hidden group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative bg-gradient-to-r from-amber-500 to-orange-500 text-white py-4 px-12 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center gap-3 overflow-hidden group"
           >
-            <span className="relative z-10 flex items-center">
+            {/* Animated Background */}
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-r from-amber-600 to-orange-600 opacity-0 group-hover:opacity-100"
+              transition={{ duration: 0.3 }}
+            />
+            
+            {/* Shine Effect */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.div 
+                className="absolute top-0 left-0 w-8 h-full bg-white/20 skew-x-12"
+                animate={{ x: ['-100%', '300%'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+
+            <span className="relative z-10 flex items-center gap-3 text-lg font-bold">
               {isLoading ? (
                 <>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Loading...
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                  />
+                  Exploring Menu...
                 </>
               ) : (
                 <>
-                  View Full Menu <FiArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  Discover Full Menu
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <FiArrowRight className="text-xl" />
+                  </motion.div>
                 </>
               )}
             </span>
-            <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          </button>
+          </motion.button>
         </motion.div>
       </div>
 
-      {/* Animation styles */}
+      {/* Custom Animations */}
       <style jsx>{`
-        @keyframes float1 {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(-20px) translateX(10px); }
+        @keyframes gradient-x {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
-        @keyframes float2 {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(20px) translateX(-15px); }
-        }
-        .animate-float1 {
-          animation: float1 8s ease-in-out infinite;
-        }
-        .animate-float2 {
-          animation: float2 10s ease-in-out infinite;
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 3s ease infinite;
         }
       `}</style>
     </div>

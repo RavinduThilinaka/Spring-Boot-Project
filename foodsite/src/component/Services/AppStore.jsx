@@ -2,11 +2,20 @@ import React from 'react';
 import playstore from '../../assets/googleplay.png';
 import Appstore from '../../assets/appleplay.png';
 import gif from '../../assets/gif.gif';
+import { FaUtensils } from 'react-icons/fa';
 
 function AppStore() {
   return (
-    <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 py-16 md:py-24">
-      <div className="container mx-auto px-4">
+    <div className="py-20 bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute top-10 left-10 text-6xl text-amber-200 dark:text-amber-900/30 opacity-60">
+        <FaUtensils />
+      </div>
+      <div className="absolute bottom-10 right-10 text-6xl text-amber-200 dark:text-amber-900/30 opacity-60">
+        <FaUtensils />
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Content Section */}
           <div 

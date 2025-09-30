@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaShoppingCart, FaSun, FaMoon, FaUserCircle } from 'react-icons/fa';
+import { FaShoppingCart, FaSun, FaMoon, FaUserCircle, FaUtensils } from 'react-icons/fa';
 import { HiMenu, HiX } from 'react-icons/hi';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -76,18 +76,19 @@ const Navbar = () => {
     <>
       <div className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg py-2' 
-          : 'bg-white dark:bg-gray-900 py-4'
+          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg py-2' 
+          : 'bg-white dark:bg-gray-900 py-3'
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             {/* Brand Name with Animation */}
             <Link 
               to="/" 
-              className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+              className="flex items-center gap-2 text-xl font-bold bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              Good Food
+              <FaUtensils className="text-orange-500" />
+              <span className="hidden sm:block">FoodieHub</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -164,13 +165,13 @@ const Navbar = () => {
                   <>
                     <Link 
                       to="/login" 
-                      className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                      className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium"
                     >
                       Login
                     </Link>
                     <Link 
                       to="/signup" 
-                      className="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-colors duration-300 shadow-md hover:shadow-lg"
+                      className="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-colors duration-300 shadow-md hover:shadow-lg font-medium"
                     >
                       Sign up
                     </Link>
@@ -179,7 +180,7 @@ const Navbar = () => {
                   <>
                     <button
                       onClick={handleLogout}
-                      className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                      className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium"
                     >
                       Log Out
                     </button>
@@ -190,7 +191,7 @@ const Navbar = () => {
                       <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-md">
                         {firstLetter || <FaUserCircle className="text-xl" />}
                       </div>
-                      <span className='font-medium max-w-[100px] truncate'>{userName}</span>
+                      <span className='font-medium max-w-[100px] truncate text-gray-700 dark:text-gray-300'>{userName}</span>
                     </Link>
                   </>
                 )}
@@ -198,40 +199,48 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center gap-4 md:hidden">
+            <div className="flex items-center gap-3 md:hidden">
+              {/* Cart Icon for Mobile */}
+              <button className="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">
+                <FaShoppingCart className="text-lg" />
+              </button>
+
+              {/* Dark Mode Toggle for Mobile */}
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-2 rounded-full bg-gray-100 dark:bg-gray-800"
+                className="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
                 aria-label="Toggle dark mode"
               >
                 {isDarkMode ? (
-                  <FaSun className="text-xl text-amber-500" />
+                  <FaSun className="text-lg" />
                 ) : (
-                  <FaMoon className="text-xl text-gray-700" />
+                  <FaMoon className="text-lg" />
                 )}
               </button>
               
+              {/* Mobile Menu Toggle */}
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                className="p-2 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
                 aria-label="Toggle menu"
               >
-                {isMenuOpen ? <HiX className="text-2xl" /> : <HiMenu className="text-2xl" />}
+                {isMenuOpen ? <HiX className="text-xl" /> : <HiMenu className="text-xl" />}
               </button>
             </div>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden bg-white dark:bg-gray-900 overflow-hidden transition-all duration-500 ${
-          isMenuOpen ? 'max-h-96 py-4' : 'max-h-0 py-0'
+        <div className={`md:hidden bg-white dark:bg-gray-900 overflow-hidden transition-all duration-300 ${
+          isMenuOpen ? 'max-h-screen py-4 border-t border-amber-100 dark:border-amber-900/30' : 'max-h-0 py-0'
         }`}>
           <div className="container mx-auto px-4">
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-3">
+              {/* Navigation Links */}
               <li>
                 <button
                   onClick={() => scrollToSection('hero')}
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                  className="block w-full text-left py-3 px-4 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20"
                 >
                   Home
                 </button>
@@ -239,7 +248,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => scrollToSection('services')}
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                  className="block w-full text-left py-3 px-4 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20"
                 >
                   Services
                 </button>
@@ -247,7 +256,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => scrollToSection('cart')}
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                  className="block w-full text-left py-3 px-4 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20"
                 >
                   Dishes
                 </button>
@@ -255,7 +264,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => scrollToSection('comments')}
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                  className="block w-full text-left py-3 px-4 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20"
                 >
                   Reviews
                 </button>
@@ -263,73 +272,82 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/contact"
-                  className="block py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
+                  className="block py-3 px-4 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Contact
                 </Link>
               </li>
+
+              {/* Order Button */}
               <li>
-                <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full flex items-center justify-center gap-2 mt-2">
-                  Order
+                <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 mt-2 shadow-lg hover:shadow-xl transition-all duration-300">
+                  Order Now
                   <FaShoppingCart className="text-lg" />
                 </button>
               </li>
-              {!isLoggedIn ? (
-                <>
-                  <li>
-                    <Link 
-                      to="/login" 
-                      className="block py-2 text-center text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link 
-                      to="/signup" 
-                      className="block py-2 bg-amber-600 text-white rounded-md text-center hover:bg-amber-700 transition-colors duration-300"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Sign up
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <button
-                      onClick={() => {
-                        handleLogout();
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300"
-                    >
-                      Log Out
-                    </button>
-                  </li>
-                  <li>
-                    <Link 
-                      to="/profile" 
-                      className="flex items-center justify-center gap-2 py-2"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-full flex items-center justify-center">
-                        {firstLetter || <FaUserCircle className="text-xl" />}
-                      </div>
-                      <span className='font-medium'>{userName}</span>
-                    </Link>
-                  </li>
-                </>
-              )}
+
+              {/* Auth Section */}
+              <div className="border-t border-gray-200 dark:border-gray-700 mt-4 pt-4">
+                {!isLoggedIn ? (
+                  <>
+                    <li>
+                      <Link 
+                        to="/login" 
+                        className="block py-3 px-4 text-center text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Login
+                      </Link>
+                    </li>
+                    <li className="mt-2">
+                      <Link 
+                        to="/signup" 
+                        className="block py-3 px-4 bg-amber-600 text-white rounded-lg text-center hover:bg-amber-700 transition-colors duration-300 font-semibold shadow-md"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Create Account
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full py-3 px-4 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors duration-300 font-medium rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20 text-left"
+                      >
+                        Log Out
+                      </button>
+                    </li>
+                    <li className="mt-3">
+                      <Link 
+                        to="/profile" 
+                        className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors duration-300"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-full flex items-center justify-center shadow-md">
+                          {firstLetter || <FaUserCircle className="text-xl" />}
+                        </div>
+                        <div className="flex-1 text-left">
+                          <div className="font-semibold text-gray-800 dark:text-white">{userName}</div>
+                          <div className="text-sm text-amber-600 dark:text-amber-400">View Profile</div>
+                        </div>
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </div>
             </ul>
           </div>
         </div>
       </div>
       
-      {/* Add spacing for fixed navbar - Reduced height to eliminate gap */}
-      <div className="h-14 md:h-10"></div>
+      {/* Add proper spacing for fixed navbar */}
+      <div className="h-16 md:h-16"></div>
     </>
   );
 };
