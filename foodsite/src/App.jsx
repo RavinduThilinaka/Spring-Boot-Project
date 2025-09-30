@@ -112,7 +112,7 @@ function Layout() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Spring-Boot-Project">
       <Layout />
     </BrowserRouter>
   );
