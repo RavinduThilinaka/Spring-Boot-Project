@@ -173,21 +173,6 @@ function Comments() {
                             </div>
                         </div>
 
-                        {/* Additional Info Card */}
-                        <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl lg:rounded-2xl p-4 lg:p-6 text-white shadow-lg">
-                            <div className="flex items-center gap-3 mb-3">
-                                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-white/20 rounded-full flex items-center justify-center">
-                                    <FaHeart className="text-sm lg:text-base" />
-                                </div>
-                                <h3 className="text-lg lg:text-xl font-bold">Join Our Food Family</h3>
-                            </div>
-                            <p className="text-amber-100 text-sm lg:text-base leading-relaxed mb-4">
-                                Be part of our growing community of food enthusiasts. Share your experiences and discover new culinary adventures with us.
-                            </p>
-                            <button className="w-full bg-white text-amber-600 py-2 lg:py-3 px-4 rounded-lg font-semibold hover:bg-amber-50 transition-all duration-300 text-sm lg:text-base">
-                                Share Your Story
-                            </button>
-                        </div>
 
                         {/* Trust Indicators */}
                         <div className="bg-white dark:bg-gray-800 rounded-xl lg:rounded-2xl p-4 lg:p-6 shadow-lg border border-amber-100 dark:border-gray-700">
