@@ -30,20 +30,20 @@ function Banner() {
               className="w-full max-w-[500px] mx-auto rounded-xl shadow-2xl transform transition-all duration-500 group-hover:rotate-1 group-hover:shadow-2xl"
             />
             <div className="absolute -bottom-5 -right-5 bg-gradient-to-r from-amber-500 to-orange-600 text-white px-6 py-3 rounded-lg shadow-lg">
-              Fresh & Tasty
+              Fresh & Artisanal
             </div>
           </div>
 
           {/* Content Section */}
           <div className="space-y-8">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white leading-tight">
-              Premium <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Quality Food</span> Delivered
+              Experience <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Culinary Excellence</span> Delivered
             </h1>
             
             <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, ratione dolores corporis minima possimus vero consequuntur non animi odio necessitatibus dolorem voluptates perspiciatis exercitationem aperiam nihil modi cum cupiditate ea?
+              Indulge in a world where every ingredient tells a story and every dish is a masterpiece. Our chefs craft unforgettable flavors using the freshest local ingredients and time-honored recipes passed down through generations.
               <br /><br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt accusamus ipsa animi officia doloremque, sequi similique, numquam maxime quidem consequatur autem nemo, maiores perspiciatis!
+              From farm to table, we ensure each meal is prepared with passion and served with perfection. Your culinary journey to exceptional dining experiences begins right at your doorstep.
             </p>
 
             {/* Features */}
@@ -52,27 +52,27 @@ function Banner() {
                 <div className="p-4 bg-amber-100 dark:bg-amber-600 rounded-full mb-3">
                   <GrSecure className="text-2xl text-amber-600 dark:text-white" />
                 </div>
-                <span className="font-medium text-gray-700 dark:text-gray-200">Secure</span>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Premium Quality</span>
               </div>
               
               <div className="flex flex-col items-center p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-amber-100 dark:border-gray-700">
                 <div className="p-4 bg-orange-100 dark:bg-orange-600 rounded-full mb-3">
                   <IoFastFood className="text-2xl text-orange-600 dark:text-white" />
                 </div>
-                <span className="font-medium text-gray-700 dark:text-gray-200">Fast Food</span>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Chef's Special</span>
               </div>
               
               <div className="flex flex-col items-center p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-amber-100 dark:border-gray-700">
                 <div className="p-4 bg-green-100 dark:bg-green-600 rounded-full mb-3">
                   <GiFoodTruck className="text-2xl text-green-600 dark:text-white" />
                 </div>
-                <span className="font-medium text-gray-700 dark:text-gray-200">Delivery</span>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Swift Delivery</span>
               </div>
             </div>
 
             {/* Button */}
             <button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
-              Order Now
+              Savor the Experience
               <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
             </button>
           </div>
