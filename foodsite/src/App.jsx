@@ -52,6 +52,7 @@ function Layout() {
       duration: 500,
       easing: 'ease-in-sine',
       delay: 100,
+      disable: window.innerWidth < 768, // 👈 Disable AOS on mobile
     });
     AOS.refresh();
   }, []);
